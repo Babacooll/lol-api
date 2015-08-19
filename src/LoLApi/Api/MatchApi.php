@@ -22,7 +22,7 @@ class MatchApi extends BaseApi
         $url             = str_replace('{matchId}', $matchId, self::API_URL_MATCH_BY_ID);
         $queryParameters = [];
 
-        $queryParameters['includeTimeline']  = (int) $includeTimeline;
+        $queryParameters['includeTimeline'] = (int) $includeTimeline;
 
         return $this->callApiUrl($url, array_filter($queryParameters));
     }

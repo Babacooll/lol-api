@@ -36,6 +36,6 @@ abstract class BaseApi
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $response        = $this->apiClient->getHttpClient()->get($url, ['query' => $queryParameters]);
 
-        return json_decode((string)$response->getBody(), true);
+        return json_decode((string) $response->getBody(), true);
     }
 }
