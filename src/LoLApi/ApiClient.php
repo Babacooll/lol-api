@@ -3,6 +3,8 @@
 namespace LoLApi;
 
 use GuzzleHttp\Client;
+use LoLApi\Api\ChampionApi;
+use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\MatchApi;
 use LoLApi\Api\MatchListApi;
 use LoLApi\Api\SummonerApi;
@@ -119,6 +121,22 @@ class ApiClient
     public function getSummonerApi()
     {
         return new SummonerApi($this);
+    }
+
+    /**
+     * @return ChampionApi
+     */
+    public function getChampionApi()
+    {
+        return new ChampionApi($this);
+    }
+
+    /**
+     * @return FeaturedGamesApi
+     */
+    public function getFeaturedGamesApi()
+    {
+        return new FeaturedGamesApi($this);
     }
 
     /**
