@@ -4,6 +4,9 @@
     "require": {
         "guzzlehttp/guzzle": "^6.0"
     },
+    "keywords": [
+        "lol api league of legends"
+    ],
     "require-dev": {
         "phpunit/phpunit": "^4.8"
     },
