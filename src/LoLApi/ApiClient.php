@@ -61,17 +61,18 @@ class ApiClient
     /**
      * @param string $region
      * @param string $apiKey
+     * @param Client $client
      *
      * @throws \Exception
      */
-    public function __construct($region, $apiKey)
+    public function __construct($region, $apiKey, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new \Exception(sprintf('Invalid region %s', $region));
         }
 
         $this->region     = $region;
-        $this->httpClient = new Client(['base_uri' => $this->getBaseUrWithRegion()]);
+        $this->httpClient = $client ? $client : new Client(['base_uri' => $this->getBaseUrWithRegion()]);
         $this->apiKey     = $apiKey;
     }
 
