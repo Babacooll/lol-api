@@ -2,6 +2,7 @@
 
 namespace LoLApi\Tests;
 
+use GuzzleHttp\Client;
 use LoLApi\ApiClient;
 
 /**
@@ -52,8 +53,8 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testGetBaseUrlWithRegion()
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
-        $class = new \ReflectionClass('LoLApi\ApiClient');
-        $method = $class->getMethod('getBaseUrlWithRegion');
+        $class     = new \ReflectionClass('LoLApi\ApiClient');
+        $method    = $class->getMethod('getBaseUrlWithRegion');
         $method->setAccessible(true);
 
         $this->assertEquals('https://euw.api.pvp.net', $method->invoke($apiClient));
@@ -67,5 +68,26 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Exception');
 
         new ApiClient('test', 'test');
+    }
+
+    /**
+     * @covers LoLApi\ApiClient::__construct
+     */
+    public function testConstructWithClient()
+    {
+        $httpClient = new Client();
+        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', $httpClient);
+
+        $this->assertSame($httpClient, $apiClient->getHttpClient());
+    }
+
+    /**
+     * @covers LoLApi\ApiClient::__construct
+     */
+    public function testConstruct()
+    {
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
+
+        $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
     }
 }
