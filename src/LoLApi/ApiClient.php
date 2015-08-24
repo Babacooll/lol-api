@@ -72,7 +72,7 @@ class ApiClient
         }
 
         $this->region     = $region;
-        $this->httpClient = $client ? $client : new Client(['base_uri' => $this->getBaseUrWithRegion()]);
+        $this->httpClient = $client ? $client : new Client(['base_uri' => $this->getBaseUrlWithRegion()]);
         $this->apiKey     = $apiKey;
     }
 
@@ -143,7 +143,7 @@ class ApiClient
     /**
      * @return string
      */
-    protected function getBaseUrWithRegion()
+    protected function getBaseUrlWithRegion()
     {
         return 'https://' . $this->region . '.api.pvp.net';
     }
