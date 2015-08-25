@@ -24,6 +24,10 @@ class BaseApiTest extends AbstractApiTest
      * @covers LoLApi\Api\MatchApi
      * @covers LoLApi\Api\MatchListApi
      * @covers LoLApi\Api\SummonerApi
+     * @covers LoLApi\Api\TeamApi
+     * @covers LoLApi\Api\GameApi
+     * @covers LoLApi\Api\CurrentGameApi
+     * @covers LoLApi\Api\StatsApi
      */
     public function testAll($api, $method, array $options = [])
     {
@@ -98,6 +102,49 @@ class BaseApiTest extends AbstractApiTest
             [
                 'getSummonerApi',
                 'getSummonersRunesBySummonerIds',
+                [
+                    [5]
+                ]
+            ],
+            [
+                'getCurrentGameApi',
+                'getCurrentGameByPlatformIdAndSummonerId',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getGameApi',
+                'getRecentGamesBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStatsApi',
+                'getRankedStatsBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStatsApi',
+                'getRankedSummaryBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getTeamApi',
+                'getTeamsBySummonersIds',
+                [
+                    [5]
+                ]
+            ],
+            [
+                'getTeamApi',
+                'getTeamsByTeamsIds',
                 [
                     [5]
                 ]

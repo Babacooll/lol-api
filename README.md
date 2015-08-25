@@ -36,13 +36,13 @@ $apiClient->getSummonerApi()->getSummonersRunesBySummonerIds([2]);
 * [Match API](https://developer.riotgames.com/api/methods#!/1014)
 * [Champion API](https://developer.riotgames.com/api/methods#!/1015)
 * [Featured games API](https://developer.riotgames.com/api/methods#!/977)
+* [Stats API](https://developer.riotgames.com/api/methods#!/1018)
+* [Team API](https://developer.riotgames.com/api/methods#!/986)
+* [Game API](https://developer.riotgames.com/api/methods#!/1016)
+* [Current game API](https://developer.riotgames.com/api/methods#!/976)
 
 ### TODO
 
-* [Current game API](https://developer.riotgames.com/api/methods#!/976)
-* [Game API](https://developer.riotgames.com/api/methods#!/1016)
 * [League API](https://developer.riotgames.com/api/methods#!/985)
 * [LoL static data API](https://developer.riotgames.com/api/methods#!/968)
 * [LoL status API](https://developer.riotgames.com/api/methods#!/908)
-* [Stats API](https://developer.riotgames.com/api/methods#!/1018)
-* [Team API](https://developer.riotgames.com/api/methods#!/986)

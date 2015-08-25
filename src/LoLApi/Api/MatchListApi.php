@@ -23,7 +23,7 @@ class MatchListApi extends BaseApi
      *
      * @return array
      */
-    public function getMatchListBySummonerId($summonerId, $championIds = [], $rankedQueues = [], $seasons = [], $beginTime = null, $endTime = null, $beginIndex = null, $endIndex = null)
+    public function getMatchListBySummonerId($summonerId, array $championIds = [], array $rankedQueues = [], array $seasons = [], $beginTime = null, $endTime = null, $beginIndex = null, $endIndex = null)
     {
         $url             = str_replace('{summonerId}', $summonerId, self::API_URL_MATCH_LIST_BY_SUMMONER_ID);
         $queryParameters = [];

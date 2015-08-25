@@ -4,10 +4,14 @@ namespace LoLApi;
 
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
+use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\FeaturedGamesApi;
+use LoLApi\Api\GameApi;
 use LoLApi\Api\MatchApi;
 use LoLApi\Api\MatchListApi;
+use LoLApi\Api\StatsApi;
 use LoLApi\Api\SummonerApi;
+use LoLApi\Api\TeamApi;
 
 /**
  * Class ApiClient
@@ -138,6 +142,38 @@ class ApiClient
     public function getFeaturedGamesApi()
     {
         return new FeaturedGamesApi($this);
+    }
+
+    /**
+     * @return StatsApi
+     */
+    public function getStatsApi()
+    {
+        return new StatsApi($this);
+    }
+
+    /**
+     * @return TeamApi
+     */
+    public function getTeamApi()
+    {
+        return new TeamApi($this);
+    }
+
+    /**
+     * @return GameApi
+     */
+    public function getGameApi()
+    {
+        return new GameApi($this);
+    }
+
+    /**
+     * @return CurrentGameApi
+     */
+    public function getCurrentGameApi()
+    {
+        return new CurrentGameApi($this);
     }
 
     /**

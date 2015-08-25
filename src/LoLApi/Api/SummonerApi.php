@@ -20,7 +20,7 @@ class SummonerApi extends BaseApi
      *
      * @return array
      */
-    public function getSummonersBySummonerNames($summonerNames = [])
+    public function getSummonersBySummonerNames(array $summonerNames = [])
     {
         $url = str_replace('{summonerNames}', implode(',', $summonerNames), self::API_URL_SUMMONERS_BY_NAMES);
 
@@ -32,7 +32,7 @@ class SummonerApi extends BaseApi
      *
      * @return array
      */
-    public function getSummonersBySummonerIds($summonerIds = [])
+    public function getSummonersBySummonerIds(array $summonerIds = [])
     {
         $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_BY_IDS);
 
@@ -44,7 +44,7 @@ class SummonerApi extends BaseApi
      *
      * @return array
      */
-    public function getSummonersMasteriesBySummonerIds($summonerIds = [])
+    public function getSummonersMasteriesBySummonerIds(array $summonerIds = [])
     {
         $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_MASTERIES_BY_IDS);
 
@@ -56,7 +56,7 @@ class SummonerApi extends BaseApi
      *
      * @return array
      */
-    public function getSummonersNamesBySummonerIds($summonerIds = [])
+    public function getSummonersNamesBySummonerIds(array $summonerIds = [])
     {
         $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_NAMES_BY_IDS);
 
@@ -68,7 +68,7 @@ class SummonerApi extends BaseApi
      *
      * @return array
      */
-    public function getSummonersRunesBySummonerIds($summonerIds = [])
+    public function getSummonersRunesBySummonerIds(array $summonerIds = [])
     {
         $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_RUNES_BY_IDS);
 
