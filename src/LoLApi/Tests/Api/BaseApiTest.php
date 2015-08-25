@@ -41,6 +41,66 @@ class BaseApiTest extends AbstractApiTest
      */
     public function dataProvider()
     {
+        return array_merge($this->getDataProvider1(), $this->getDataProvider2());
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider1()
+    {
+        return [
+            [
+                'getCurrentGameApi',
+                'getCurrentGameByPlatformIdAndSummonerId',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getGameApi',
+                'getRecentGamesBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStatsApi',
+                'getRankedStatsBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStatsApi',
+                'getRankedSummaryBySummonerId',
+                [
+                    5
+                ]
+            ],
+            [
+                'getTeamApi',
+                'getTeamsBySummonersIds',
+                [
+                    [5]
+                ]
+            ],
+            [
+                'getTeamApi',
+                'getTeamsByTeamsIds',
+                [
+                    [5]
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider2()
+    {
         return [
             [
                 'getMatchListApi',
@@ -105,50 +165,7 @@ class BaseApiTest extends AbstractApiTest
                 [
                     [5]
                 ]
-            ],
-            [
-                'getCurrentGameApi',
-                'getCurrentGameByPlatformIdAndSummonerId',
-                [
-                    'EUW1',
-                    5
-                ]
-            ],
-            [
-                'getGameApi',
-                'getRecentGamesBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedStatsBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedSummaryBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getTeamApi',
-                'getTeamsBySummonersIds',
-                [
-                    [5]
-                ]
-            ],
-            [
-                'getTeamApi',
-                'getTeamsByTeamsIds',
-                [
-                    [5]
-                ]
-            ],
+            ]
         ];
     }
 }
