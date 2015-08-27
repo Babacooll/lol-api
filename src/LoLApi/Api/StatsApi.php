@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class StatsApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class StatsApi extends BaseApi
 {
@@ -17,7 +20,7 @@ class StatsApi extends BaseApi
      * @param string $season
      * @param string $season
      *
-     * @return array
+     * @return ApiResult
      */
     public function getRankedStatsBySummonerId($summonerId, $season = null)
     {
@@ -31,7 +34,7 @@ class StatsApi extends BaseApi
      * @param string $season
      * @param string $season
      *
-     * @return array
+     * @return ApiResult
      */
     public function getRankedSummaryBySummonerId($summonerId, $season = null)
     {

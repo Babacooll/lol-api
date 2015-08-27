@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class ChampionApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class ChampionApi extends BaseApi
 {
@@ -15,7 +18,7 @@ class ChampionApi extends BaseApi
     /**
      * @param bool $onlyFreeToPlay
      *
-     * @return array
+     * @return ApiResult
      */
     public function getAllChampions($onlyFreeToPlay = false)
     {
@@ -26,7 +29,7 @@ class ChampionApi extends BaseApi
     /**
      * @param int $championId
      *
-     * @return array
+     * @return ApiResult
      */
     public function getChampionById($championId)
     {

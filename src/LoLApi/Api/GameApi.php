@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class GameApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class GameApi extends BaseApi
 {
@@ -14,7 +17,7 @@ class GameApi extends BaseApi
     /**
      * @param string $summonerId
      *
-     * @return array
+     * @return ApiResult
      */
     public function getRecentGamesBySummonerId($summonerId)
     {

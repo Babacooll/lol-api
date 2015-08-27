@@ -2,7 +2,9 @@
     "name": "michaelgarrez/lol-api",
     "description": "Wrapper for League of Legends API",
     "require": {
-        "guzzlehttp/guzzle": "^6.0"
+        "guzzlehttp/guzzle": "^6.0",
+        "doctrine/cache": "^1.4",
+        "predis/predis": "~1.0"
     },
     "keywords": [
         "lol", "api" , "league of legends", "lol api", "library"

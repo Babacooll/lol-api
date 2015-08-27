@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class SummonerApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class SummonerApi extends BaseApi
 {
@@ -18,7 +21,7 @@ class SummonerApi extends BaseApi
     /**
      * @param array $summonerNames
      *
-     * @return array
+     * @return ApiResult
      */
     public function getSummonersBySummonerNames(array $summonerNames = [])
     {
@@ -30,7 +33,7 @@ class SummonerApi extends BaseApi
     /**
      * @param array $summonerIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getSummonersBySummonerIds(array $summonerIds = [])
     {
@@ -42,7 +45,7 @@ class SummonerApi extends BaseApi
     /**
      * @param array $summonerIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getSummonersMasteriesBySummonerIds(array $summonerIds = [])
     {
@@ -54,7 +57,7 @@ class SummonerApi extends BaseApi
     /**
      * @param array $summonerIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getSummonersNamesBySummonerIds(array $summonerIds = [])
     {
@@ -66,7 +69,7 @@ class SummonerApi extends BaseApi
     /**
      * @param array $summonerIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getSummonersRunesBySummonerIds(array $summonerIds = [])
     {

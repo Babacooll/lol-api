@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class MatchApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class MatchApi extends BaseApi
 {
@@ -15,7 +18,7 @@ class MatchApi extends BaseApi
      * @param int        $matchId
      * @param bool|false $includeTimeline
      *
-     * @return array
+     * @return ApiResult
      */
     public function getMatchByMatchId($matchId, $includeTimeline = false)
     {

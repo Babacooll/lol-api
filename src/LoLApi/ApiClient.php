@@ -2,6 +2,8 @@
 
 namespace LoLApi;
 
+use Doctrine\Common\Cache\CacheProvider;
+use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
 use LoLApi\Api\CurrentGameApi;
@@ -12,6 +14,7 @@ use LoLApi\Api\MatchListApi;
 use LoLApi\Api\StatsApi;
 use LoLApi\Api\SummonerApi;
 use LoLApi\Api\TeamApi;
+use LoLApi\Result\ApiResult;
 
 /**
  * Class ApiClient
@@ -63,21 +66,44 @@ class ApiClient
     protected $httpClient;
 
     /**
-     * @param string $region
-     * @param string $apiKey
-     * @param Client $client
+     * @var CacheProvider
+     */
+    protected $cacheProvider;
+
+    /**
+     * @param string        $region
+     * @param string        $apiKey
+     * @param CacheProvider $cacheProvider
+     * @param Client        $client
      *
      * @throws \Exception
      */
-    public function __construct($region, $apiKey, Client $client = null)
+    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new \Exception(sprintf('Invalid region %s', $region));
         }
 
-        $this->region     = $region;
-        $this->httpClient = $client ? $client : new Client(['base_uri' => $this->getBaseUrlWithRegion()]);
-        $this->apiKey     = $apiKey;
+        $this->region        = $region;
+        $this->httpClient    = $client ? $client : new Client(['base_uri' => $this->getBaseUrlWithRegion()]);
+        $this->apiKey        = $apiKey;
+        $this->cacheProvider = $cacheProvider ? $cacheProvider : new VoidCache();
+    }
+
+    /**
+     * @param CacheProvider $cacheProvider
+     */
+    public function setCacheProvider(CacheProvider $cacheProvider)
+    {
+        $this->cacheProvider = $cacheProvider;
+    }
+
+    /**
+     * @return CacheProvider
+     */
+    public function getCacheProvider()
+    {
+        return $this->cacheProvider;
     }
 
     /**
@@ -179,8 +205,17 @@ class ApiClient
     /**
      * @return string
      */
-    protected function getBaseUrlWithRegion()
+    public function getBaseUrlWithRegion()
     {
         return 'https://' . $this->region . '.api.pvp.net';
+    }
+
+    /**
+     * @param ApiResult $apiResult
+     * @param int       $ttl
+     */
+    public function cacheApiResult(ApiResult $apiResult, $ttl = 60)
+    {
+        $this->cacheProvider->save($apiResult->getUrl(), json_encode($apiResult->getResult()), $ttl);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace LoLApi\Tests;
 
+use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\ApiClient;
 
@@ -84,7 +85,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithClient()
     {
         $httpClient = new Client();
-        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', $httpClient);
+        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache(), $httpClient);
 
         $this->assertSame($httpClient, $apiClient->getHttpClient());
     }
@@ -94,7 +95,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache());
 
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
     }

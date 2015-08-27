@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class CurrentGameApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class CurrentGameApi extends BaseApi
 {
@@ -15,7 +18,7 @@ class CurrentGameApi extends BaseApi
      * @param string $platformId
      * @param string $summonerId
      *
-     * @return array
+     * @return ApiResult
      */
     public function getCurrentGameByPlatformIdAndSummonerId($platformId, $summonerId)
     {

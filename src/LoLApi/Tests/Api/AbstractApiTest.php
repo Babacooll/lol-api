@@ -2,6 +2,7 @@
 
 namespace LoLApi\Tests;
 
+use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -35,6 +36,6 @@ abstract class AbstractApiTest extends \PHPUnit_Framework_TestCase
         $handler    = HandlerStack::create($mock);
         $httpClient = new Client(['handler' => $handler, 'base_uri' => 'https://' . self::REGION . '.api.pvp.net']);
 
-        $this->apiClient = new ApiClient(self::REGION, self::API_KEY, $httpClient);
+        $this->apiClient = new ApiClient(self::REGION, self::API_KEY, new VoidCache(), $httpClient);
     }
 }

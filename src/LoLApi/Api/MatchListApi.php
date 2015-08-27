@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class MatchListApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class MatchListApi extends BaseApi
 {
@@ -21,7 +24,7 @@ class MatchListApi extends BaseApi
      * @param int   $beginIndex
      * @param int   $endIndex
      *
-     * @return array
+     * @return ApiResult
      */
     public function getMatchListBySummonerId($summonerId, array $championIds = [], array $rankedQueues = [], array $seasons = [], $beginTime = null, $endTime = null, $beginIndex = null, $endIndex = null)
     {

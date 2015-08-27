@@ -2,10 +2,13 @@
 
 namespace LoLApi\Api;
 
+use LoLApi\Result\ApiResult;
+
 /**
  * Class TeamApi
  *
  * @package LoLApi\Api
+ * @see https://developer.riotgames.com/api/methods
  */
 class TeamApi extends BaseApi
 {
@@ -15,7 +18,7 @@ class TeamApi extends BaseApi
     /**
      * @param array $summonerIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getTeamsBySummonersIds(array $summonerIds = [])
     {
@@ -27,7 +30,7 @@ class TeamApi extends BaseApi
     /**
      * @param array $teamsIds
      *
-     * @return array
+     * @return ApiResult
      */
     public function getTeamsByTeamsIds(array $teamsIds = [])
     {

@@ -33,7 +33,7 @@ class BaseApiTest extends AbstractApiTest
     {
         $api = $this->apiClient->{$api}();
 
-        $this->assertSame(['success'], call_user_func_array([$api, $method], $options));
+        $this->assertSame(['success'], call_user_func_array([$api, $method], $options)->getResult());
     }
 
     /**
