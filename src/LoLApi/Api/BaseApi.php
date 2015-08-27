@@ -5,7 +5,6 @@ namespace LoLApi\Api;
 use GuzzleHttp\Exception\ClientException;
 use LoLApi\ApiClient;
 use LoLApi\Handler\ClientExceptionHandler;
-use GuzzleHttp\Psr7;
 use LoLApi\Result\ApiResult;
 use Psr\Http\Message\ResponseInterface;
 
