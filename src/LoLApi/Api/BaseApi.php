@@ -49,10 +49,8 @@ abstract class BaseApi
 
             return $this->buildApiResult($fullUrl, json_decode((string) $response->getBody(), true), false, $response);
         } catch (ClientException $e) {
-            (new ClientExceptionHandler())->handleClientException($e);
+            throw (new ClientExceptionHandler())->handleClientException($e);
         }
-
-        return null;
     }
 
     /**

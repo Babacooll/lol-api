@@ -3,6 +3,7 @@
 namespace LoLApi\Handler;
 
 use GuzzleHttp\Exception\ClientException;
+use LoLApi\Exception\AbstractRateLimitException;
 use LoLApi\Exception\ServiceRateLimitException;
 use LoLApi\Exception\UserRateLimitException;
 
@@ -21,33 +22,31 @@ class ClientExceptionHandler
     /**
      * @param ClientException $e
      *
-     * @throws ServiceRateLimitException
-     * @throws UserRateLimitException
+     * @return ClientException
      */
     public function handleClientException(ClientException $e)
     {
         if ($e->getResponse()->getStatusCode() === 429) {
-            $this->handleRateLimitException($e);
+            return $this->handleRateLimitException($e);
         }
 
-        throw $e;
+        return $e;
     }
 
     /**
      * @param ClientException $e
      *
-     * @throws ServiceRateLimitException
-     * @throws UserRateLimitException
+     * @return AbstractRateLimitException
      */
     protected function handleRateLimitException(ClientException $e)
     {
-        if ($e->getResponse()->getHeader(self::HEADER_RATE_LIMIT_TYPE) === self::RATE_LIMIT_TYPE_USER) {
+        if ($e->getResponse()->getHeader(self::HEADER_RATE_LIMIT_TYPE)[0] === self::RATE_LIMIT_TYPE_USER) {
             $exception = new UserRateLimitException();
         } else {
             $exception = new ServiceRateLimitException();
         }
 
-        throw $exception
+        return $exception
             ->setClientException($e)
             ->setRetryAfter($e->getResponse()->getHeader(self::HEADER_RETRY_AFTER)[0]);
     }

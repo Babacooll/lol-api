@@ -2,6 +2,10 @@
 
 namespace LoLApi\Tests\Api;
 
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\VoidCache;
+use LoLApi\ApiClient;
+use LoLApi\Result\ApiResult;
 use LoLApi\Tests\AbstractApiTest;
 
 /**
@@ -34,6 +38,32 @@ class BaseApiTest extends AbstractApiTest
         $api = $this->apiClient->{$api}();
 
         $this->assertSame(['success'], call_user_func_array([$api, $method], $options)->getResult());
+    }
+
+    /**
+     * @covers LoLApi\Api\BaseApi::callApiUrl
+     */
+    public function testWithCachedResult()
+    {
+        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
+        $arrayCache->expects($this->once())->method('contains')->willReturn(true);
+        $arrayCache->expects($this->once())->method('fetch')->willReturn('{}');
+
+        $apiClient = $this->getApiClient($arrayCache, $this->getSuccessfulHttpClient());
+
+        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
+    }
+
+    /**
+     * @covers LoLApi\Api\BaseApi::callApiUrl
+     */
+    public function testWithRateLimitException()
+    {
+        $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
+
+        $this->setExpectedException('LoLApi\Exception\ServiceRateLimitException');
+
+        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
     }
 
     /**

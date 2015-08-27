@@ -2,9 +2,11 @@
 
 namespace LoLApi\Tests;
 
+use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\ApiClient;
+use LoLApi\Result\ApiResult;
 
 /**
  * Class ApiClientTest
@@ -54,6 +56,35 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::REGION, $apiClient->getRegion());
         $this->assertEquals(self::API_KEY, $apiClient->getApiKey());
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
+    }
+
+    /**
+     * @covers LoLApi\ApiClient::setCacheProvider
+     * @covers LoLApi\ApiClient::getCacheProvider
+     */
+    public function testCacheProvider()
+    {
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
+
+        $this->assertInstanceOf('Doctrine\Common\Cache\VoidCache', $apiClient->getCacheProvider());
+
+        $apiClient->setCacheProvider(new ArrayCache());
+
+        $this->assertInstanceOf('Doctrine\Common\Cache\ArrayCache', $apiClient->getCacheProvider());
+    }
+
+    /**
+     * @covers LoLApi\ApiClient::cacheApiResult
+     */
+    public function testCacheApiResult()
+    {
+        $apiResult  = new ApiResult();
+        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
+        $arrayCache->expects($this->once())->method('save')->willReturn($this->equalTo($apiResult));
+
+        $client = new ApiClient(ApiClient::REGION_EUW, 'test', $arrayCache);
+
+        $client->cacheApiResult($apiResult);
     }
 
     /**
