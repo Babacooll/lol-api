@@ -22,7 +22,7 @@ class ClientExceptionHandler
     /**
      * @param ClientException $e
      *
-     * @return ClientException
+     * @return ClientException|AbstractRateLimitException
      */
     public function handleClientException(ClientException $e)
     {

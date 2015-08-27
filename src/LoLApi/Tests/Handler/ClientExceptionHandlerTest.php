@@ -31,6 +31,7 @@ class ClientExceptionHandlerTest extends \PHPUnit_Framework_TestCase
      * @param string $exceptionNamespace
      *
      * @covers       LoLApi\Handler\ClientExceptionHandler::handleClientException
+     * @covers       LoLApi\Handler\ClientExceptionHandler::handleRateLimitException
      *
      * @dataProvider dataProvider
      */

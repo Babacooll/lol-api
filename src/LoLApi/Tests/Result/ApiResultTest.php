@@ -39,6 +39,19 @@ class ApiResultTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers LoLApi\Result\ApiResult::getUrl
+     * @covers LoLApi\Result\ApiResult::setUrl
+     */
+    public function testUrl()
+    {
+        $apiResult = new ApiResult();
+        $url       = 'http://www.google.com';
+
+        $this->assertSame($apiResult, $apiResult->setUrl($url));
+        $this->assertSame($url, $apiResult->getUrl());
+    }
+
+    /**
      * @covers LoLApi\Result\ApiResult::isFetchedFromCache
      * @covers LoLApi\Result\ApiResult::setFetchedFromCache
      */
