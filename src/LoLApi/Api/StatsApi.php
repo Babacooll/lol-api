@@ -48,7 +48,7 @@ class StatsApi extends BaseApi
      *
      * @return array
      */
-    protected function handleQueryParametersForSeason($season)
+    protected function handleQueryParametersForSeason($season = null)
     {
         $queryParameters = [];
 

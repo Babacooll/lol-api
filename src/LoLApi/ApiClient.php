@@ -11,6 +11,7 @@ use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\GameApi;
 use LoLApi\Api\MatchApi;
 use LoLApi\Api\MatchListApi;
+use LoLApi\Api\StaticDataApi;
 use LoLApi\Api\StatsApi;
 use LoLApi\Api\SummonerApi;
 use LoLApi\Api\TeamApi;
@@ -203,11 +204,27 @@ class ApiClient
     }
 
     /**
+     * @return StaticDataApi
+     */
+    public function getStaticDataApi()
+    {
+        return new StaticDataApi($this);
+    }
+
+    /**
      * @return string
      */
     public function getBaseUrlWithRegion()
     {
         return 'https://' . $this->region . '.api.pvp.net';
+    }
+
+    /**
+     * @return string
+     */
+    public function getGlobalUrl()
+    {
+        return 'https://global.api.pvp.net';
     }
 
     /**

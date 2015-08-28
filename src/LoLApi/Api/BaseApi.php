@@ -31,12 +31,14 @@ abstract class BaseApi
     /**
      * @param string $url
      * @param array  $queryParameters
+     * @param bool   $global
      *
      * @return ApiResult|null
      */
-    protected function callApiUrl($url, array $queryParameters = [])
+    protected function callApiUrl($url, array $queryParameters = [], $global = false)
     {
-        $url             = str_replace('{region}', $this->apiClient->getRegion(), $url);
+        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : '';
+        $url             = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters);
 
@@ -56,12 +58,15 @@ abstract class BaseApi
     /**
      * @param string $url
      * @param array  $queryParameters
+     * @param bool   $global
      *
      * @return string
      */
-    protected function buildUri($url, array $queryParameters)
+    protected function buildUri($url, array $queryParameters, $global = false)
     {
-        return $this->apiClient->getBaseUrlWithRegion() . $url . '?' . http_build_query($queryParameters);
+        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrlWithRegion();
+
+        return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }
 
     /**
