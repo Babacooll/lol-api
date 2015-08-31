@@ -69,7 +69,7 @@ class BaseApiTest extends AbstractApiTest
      */
     public function dataProvider()
     {
-        return array_merge($this->getDataProvider1(), $this->getDataProvider2(), $this->getDataProvider3());
+        return array_merge($this->getDataProvider1(), $this->getDataProvider2(), $this->getDataProvider3(), $this->getDataProvider4());
     }
 
     /**
@@ -259,7 +259,16 @@ class BaseApiTest extends AbstractApiTest
             [
                 'getStaticDataApi',
                 'getMap'
-            ],
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider4()
+    {
+        return [
             [
                 'getStaticDataApi',
                 'getMasteries'
