@@ -53,11 +53,9 @@ class StaticDataApi extends BaseApi
      */
     public function getChampionById($championId, $locale = null, $version = null, array $champData = [])
     {
-        $url = str_replace('{championId}', $championId, self::API_URL_STATIC_DATA_CHAMPION_BY_ID);
-
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['champData' => implode(',', $champData)]);
 
-        return $this->callApiUrl($url, array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{championId}', $championId, self::API_URL_STATIC_DATA_CHAMPION_BY_ID), array_filter($queryParameters), true);
     }
 
     /**
@@ -83,11 +81,9 @@ class StaticDataApi extends BaseApi
      */
     public function getItemById($itemId, $locale = null, $version = null, array $itemData = [])
     {
-        $url = str_replace('{itemId}', $itemId, self::API_URL_STATIC_DATA_ITEM_BY_ID);
-
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['itemData' => implode(',', $itemData)]);
 
-        return $this->callApiUrl($url, array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{itemId}', $itemId, self::API_URL_STATIC_DATA_ITEM_BY_ID), array_filter($queryParameters), true);
     }
 
     /**
@@ -148,11 +144,9 @@ class StaticDataApi extends BaseApi
      */
     public function getMasteryById($masteryId, $locale = null, $version = null, array $masteryData = [])
     {
-        $url = str_replace('{masteryId}', $masteryId, self::API_URL_STATIC_DATA_MASTERY_BY_ID);
-
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['masteryData' => implode(',', $masteryData)]);
 
-        return $this->callApiUrl($url, array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{masteryId}', $masteryId, self::API_URL_STATIC_DATA_MASTERY_BY_ID), array_filter($queryParameters), true);
     }
 
     /**
@@ -187,11 +181,9 @@ class StaticDataApi extends BaseApi
      */
     public function getRuneById($runeId, $locale = null, $version = null, array $runeData = [])
     {
-        $url = str_replace('{runeId}', $runeId, self::API_URL_STATIC_DATA_RUNE_BY_ID);
-
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['runeData' => implode(',', $runeData)]);
 
-        return $this->callApiUrl($url, array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{runeId}', $runeId, self::API_URL_STATIC_DATA_RUNE_BY_ID), array_filter($queryParameters), true);
     }
 
     /**
@@ -219,11 +211,9 @@ class StaticDataApi extends BaseApi
      */
     public function getSummonerSpellById($summonerSpellId, $locale = null, $version = null, array $spellData = [])
     {
-        $url = str_replace('{summonerSpellId}', $summonerSpellId, self::API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID);
-
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['spellData' => implode(',', $spellData)]);
 
-        return $this->callApiUrl($url, array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{summonerSpellId}', $summonerSpellId, self::API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID), array_filter($queryParameters), true);
     }
 
     /**
