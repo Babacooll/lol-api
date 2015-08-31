@@ -25,8 +25,8 @@ class AbstractRateLimitExceptionTest extends \PHPUnit_Framework_TestCase
         $clientException           = new ClientException('test', $request, $response);
         $serviceRateLimitException = new ServiceRateLimitException();
 
-        $this->assertSame($serviceRateLimitException, $serviceRateLimitException->setClientException($clientException));
-        $this->assertSame($clientException, $serviceRateLimitException->getClientException());
+        $this->assertEquals($serviceRateLimitException, $serviceRateLimitException->setClientException($clientException));
+        $this->assertEquals($clientException, $serviceRateLimitException->getClientException());
     }
 
     /**

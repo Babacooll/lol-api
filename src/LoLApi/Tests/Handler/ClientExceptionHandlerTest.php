@@ -15,12 +15,14 @@ use LoLApi\Handler\ClientExceptionHandler;
 class ClientExceptionHandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @param ClientException $clientException
+     *
      * @covers LoLApi\Handler\ClientExceptionHandler::handleClientException
+     *
+     * @dataProvider getClientException
      */
-    public function testHandleClientExceptionWithoutRateLimit()
+    public function testHandleClientExceptionWithoutRateLimit(ClientException $clientException)
     {
-        $clientException = new ClientException('exception', new Request('POST', 'data'), new Response(400));
-
         $this->assertSame($clientException, (new ClientExceptionHandler())->handleClientException($clientException));
     }
 
@@ -62,6 +64,18 @@ class ClientExceptionHandlerTest extends \PHPUnit_Framework_TestCase
             [
                 ClientExceptionHandler::RATE_LIMIT_TYPE_SERVICE,
                 'LoLApi\Exception\ServiceRateLimitException'
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getClientException()
+    {
+        return [
+            [
+                new ClientException('exception', new Request('POST', 'data'), new Response(400))
             ]
         ];
     }
