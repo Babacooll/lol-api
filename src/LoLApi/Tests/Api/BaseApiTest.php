@@ -283,7 +283,9 @@ class BaseApiTest extends AbstractApiTest
                 'getStaticDataApi',
                 'getRuneById',
                 [
-                    5
+                    5,
+                    'fr',
+                    'v1.2'
                 ]
             ],
             [

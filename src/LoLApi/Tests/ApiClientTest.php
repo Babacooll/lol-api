@@ -28,6 +28,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getStatsApi
      * @covers LoLApi\ApiClient::getCurrentGameApi
      * @covers LoLApi\ApiClient::getTeamApi
+     * @covers LoLApi\ApiClient::getStaticDataApi
      */
     public function testApiGetters()
     {
@@ -42,12 +43,14 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('LoLApi\Api\StatsApi', $apiClient->getStatsApi());
         $this->assertInstanceOf('LoLApi\Api\CurrentGameApi', $apiClient->getCurrentGameApi());
         $this->assertInstanceOf('LoLApi\Api\TeamApi', $apiClient->getTeamApi());
+        $this->assertInstanceOf('LoLApi\Api\StaticDataApi', $apiClient->getStaticDataApi());
     }
 
     /**
      * @covers LoLApi\ApiClient::getRegion
      * @covers LoLApi\ApiClient::getApiKey
      * @covers LoLApi\ApiClient::getHttpClient
+     * @covers LoLApi\ApiClient::getGlobalUrl
      */
     public function testOtherGetters()
     {
@@ -56,6 +59,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::REGION, $apiClient->getRegion());
         $this->assertEquals(self::API_KEY, $apiClient->getApiKey());
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
+        $this->assertSame('https://global.api.pvp.net', $apiClient->getGlobalUrl());
     }
 
     /**
