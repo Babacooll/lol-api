@@ -2,10 +2,7 @@
 
 namespace LoLApi\Tests\Api;
 
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\VoidCache;
-use LoLApi\ApiClient;
-use LoLApi\Result\ApiResult;
 use LoLApi\Tests\AbstractApiTest;
 
 /**
@@ -32,6 +29,7 @@ class BaseApiTest extends AbstractApiTest
      * @covers LoLApi\Api\GameApi
      * @covers LoLApi\Api\CurrentGameApi
      * @covers LoLApi\Api\StatsApi
+     * @covers LoLApi\Api\StaticDataApi
      */
     public function testAll($api, $method, array $options = [])
     {
@@ -71,7 +69,7 @@ class BaseApiTest extends AbstractApiTest
      */
     public function dataProvider()
     {
-        return array_merge($this->getDataProvider1(), $this->getDataProvider2());
+        return array_merge($this->getDataProvider1(), $this->getDataProvider2(), $this->getDataProvider3());
     }
 
     /**
@@ -210,6 +208,97 @@ class BaseApiTest extends AbstractApiTest
                 'getSummonersRunesBySummonerIds',
                 [
                     [5]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider3()
+    {
+        return [
+            [
+                'getStaticDataApi',
+                'getChampions',
+            ],
+            [
+                'getStaticDataApi',
+                'getChampionById',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStaticDataApi',
+                'getChampionById',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStaticDataApi',
+                'getItems'
+            ],
+            [
+                'getStaticDataApi',
+                'getItemById',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStaticDataApi',
+                'getLanguageStrings'
+            ],
+            [
+                'getStaticDataApi',
+                'getLanguages'
+            ],
+            [
+                'getStaticDataApi',
+                'getMap'
+            ],
+            [
+                'getStaticDataApi',
+                'getMasteries'
+            ],
+            [
+                'getStaticDataApi',
+                'getMasteryById',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStaticDataApi',
+                'getRealms'
+            ],
+            [
+                'getStaticDataApi',
+                'getRunes'
+            ],
+            [
+                'getStaticDataApi',
+                'getRuneById',
+                [
+                    5
+                ]
+            ],
+            [
+                'getStaticDataApi',
+                'getVersions'
+            ],
+            [
+                'getStaticDataApi',
+                'getSummonerSpells'
+            ],
+            [
+                'getStaticDataApi',
+                'getSummonerSpellById',
+                [
+                    5
                 ]
             ]
         ];

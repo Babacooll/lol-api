@@ -84,6 +84,7 @@ class StaticDataApi extends BaseApi
      * @param int    $itemId
      * @param string $locale
      * @param string $version
+     * @param array  $itemData
      *
      * @return ApiResult|null
      */
