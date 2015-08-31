@@ -19,11 +19,9 @@ class ClientExceptionHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testHandleClientExceptionWithoutRateLimit()
     {
-        $response               = new Response(400);
-        $clientException        = new ClientException('test', new Request('GET', 'test'), $response);
-        $clientExceptionHandler = new ClientExceptionHandler();
+        $clientException = new ClientException('exception', new Request('POST', 'data'), new Response(400));
 
-        $this->assertSame($clientException, $clientExceptionHandler->handleClientException($clientException));
+        $this->assertSame($clientException, (new ClientExceptionHandler())->handleClientException($clientException));
     }
 
     /**
