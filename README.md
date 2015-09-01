@@ -8,6 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/michaelgarrez/lol-api/downloads)](https://packagist.org/packages/michaelgarrez/lol-api) 
 [![Latest Unstable Version](https://poser.pugx.org/michaelgarrez/lol-api/v/unstable)](https://packagist.org/packages/michaelgarrez/lol-api) 
 [![License](https://poser.pugx.org/michaelgarrez/lol-api/license)](https://packagist.org/packages/michaelgarrez/lol-api)
+[![Dependency Status](https://www.versioneye.com/user/projects/55e5aa1a8c0f62001c000356/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55e5aa1a8c0f62001c000356)
 
 ### Introduction
 
