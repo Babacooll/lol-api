@@ -19,17 +19,18 @@ class BaseApiTest extends AbstractApiTest
      *
      * @dataProvider dataProvider
      *
-     * @covers LoLApi\Api\BaseApi
-     * @covers LoLApi\Api\ChampionApi
-     * @covers LoLApi\Api\FeaturedGamesApi
-     * @covers LoLApi\Api\MatchApi
-     * @covers LoLApi\Api\MatchListApi
-     * @covers LoLApi\Api\SummonerApi
-     * @covers LoLApi\Api\TeamApi
-     * @covers LoLApi\Api\GameApi
-     * @covers LoLApi\Api\CurrentGameApi
-     * @covers LoLApi\Api\StatsApi
-     * @covers LoLApi\Api\StaticDataApi
+     * @covers       LoLApi\Api\BaseApi
+     * @covers       LoLApi\Api\ChampionApi
+     * @covers       LoLApi\Api\FeaturedGamesApi
+     * @covers       LoLApi\Api\MatchApi
+     * @covers       LoLApi\Api\MatchListApi
+     * @covers       LoLApi\Api\SummonerApi
+     * @covers       LoLApi\Api\TeamApi
+     * @covers       LoLApi\Api\GameApi
+     * @covers       LoLApi\Api\CurrentGameApi
+     * @covers       LoLApi\Api\StatsApi
+     * @covers       LoLApi\Api\StaticDataApi
+     * @covers       LoLApi\Api\LeagueApi
      */
     public function testAll($api, $method, array $options = [])
     {
@@ -69,7 +70,7 @@ class BaseApiTest extends AbstractApiTest
      */
     public function dataProvider()
     {
-        return array_merge($this->getDataProvider1(), $this->getDataProvider2(), $this->getDataProvider3(), $this->getDataProvider4());
+        return array_merge($this->getDataProvider1(), $this->getDataProvider2(), $this->getDataProvider3(), $this->getDataProvider4(), $this->getDataProvider5(), $this->getDataProvider6());
     }
 
     /**
@@ -310,6 +311,85 @@ class BaseApiTest extends AbstractApiTest
                 'getSummonerSpellById',
                 [
                     5
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider5()
+    {
+        return [
+            [
+                'getLeagueApi',
+                'getLeagueBySummonersIds',
+                [
+                    [
+                        5
+                    ]
+                ]
+            ],
+            [
+                'getLeagueApi',
+                'getLeagueEntriesBySummonersIds',
+                [
+                    [
+                        5
+                    ]
+                ]
+            ],
+            [
+                'getLeagueApi',
+                'getLeagueByTeamsIds',
+                [
+                    [
+                        5
+                    ]
+                ]
+            ],
+            [
+                'getLeagueApi',
+                'getLeagueEntriesByTeamsIds',
+                [
+                    [
+                        5
+                    ]
+                ]
+            ],
+            [
+                'getLeagueApi',
+                'getChallengerLeagues',
+                [
+                    'RANKED_SOLO_5x5'
+                ]
+            ],
+            [
+                'getLeagueApi',
+                'getMasterLeagues',
+                [
+                    'RANKED_SOLO_5x5'
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDataProvider6()
+    {
+        return [
+            [
+                'getStatusApi',
+                'getShards'
+            ],
+            [
+                'getStatusApi',
+                'getShardsByRegion',
+                [
+                    'euw'
                 ]
             ]
         ];

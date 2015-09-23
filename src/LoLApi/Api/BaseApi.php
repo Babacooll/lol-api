@@ -32,12 +32,13 @@ abstract class BaseApi
      * @param string $url
      * @param array  $queryParameters
      * @param bool   $global
+     * @param bool   $status
      *
      * @return ApiResult|null
      */
-    protected function callApiUrl($url, array $queryParameters = [], $global = false)
+    protected function callApiUrl($url, array $queryParameters = [], $global = false, $status = false)
     {
-        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : '';
+        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : $status ? $this->apiClient->getStatusUrl() : '';
         $url             = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters);

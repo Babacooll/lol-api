@@ -113,13 +113,9 @@ for ($i = 0; $i < 100; $i++) {
 | [Team API](https://developer.riotgames.com/api/methods#)      | ![v2.4](https://img.shields.io/badge/v2.4-latest-green.svg)|  
 | [Game API](https://developer.riotgames.com/api/methods#)      | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
 | [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v*.*-latest-green.svg)|  
-| [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.2-latest-green.svg)|  
-
-
-### TODO
-
-* [League API](https://developer.riotgames.com/api/methods#!/985)
-* [LoL status API](https://developer.riotgames.com/api/methods#!/908)
+| [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v1.2](https://img.shields.io/badge/v1.2-latest-green.svg)|  
+| [League API](https://developer.riotgames.com/api/methods#)      | ![v2.5](https://img.shields.io/badge/v2.5-latest-green.svg)|  
+| [Status API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v*.*-latest-green.svg)|  
 
 ### Contributing
 

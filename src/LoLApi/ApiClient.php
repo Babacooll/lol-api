@@ -9,10 +9,12 @@ use LoLApi\Api\ChampionApi;
 use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\GameApi;
+use LoLApi\Api\LeagueApi;
 use LoLApi\Api\MatchApi;
 use LoLApi\Api\MatchListApi;
 use LoLApi\Api\StaticDataApi;
 use LoLApi\Api\StatsApi;
+use LoLApi\Api\StatusApi;
 use LoLApi\Api\SummonerApi;
 use LoLApi\Api\TeamApi;
 use LoLApi\Result\ApiResult;
@@ -204,11 +206,27 @@ class ApiClient
     }
 
     /**
+     * @return LeagueApi
+     */
+    public function getLeagueApi()
+    {
+        return new LeagueApi($this);
+    }
+
+    /**
      * @return StaticDataApi
      */
     public function getStaticDataApi()
     {
         return new StaticDataApi($this);
+    }
+
+    /**
+     * @return StatusApi
+     */
+    public function getStatusApi()
+    {
+        return new StatusApi($this);
     }
 
     /**
@@ -225,6 +243,14 @@ class ApiClient
     public function getGlobalUrl()
     {
         return 'https://global.api.pvp.net';
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusUrl()
+    {
+        return 'http://status.leagueoflegends.com';
     }
 
     /**
