@@ -55,7 +55,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getApiKey
      * @covers LoLApi\ApiClient::getHttpClient
      * @covers LoLApi\ApiClient::getGlobalUrl
-     * @covers LoLApi\ApiClient::getStatusApi
+     * @covers LoLApi\ApiClient::getStatusUrl
      */
     public function testOtherGetters()
     {
