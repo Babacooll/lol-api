@@ -34,11 +34,12 @@ abstract class BaseApi
      * @param bool   $global
      * @param bool   $status
      *
-     * @return ApiResult|null
+     * @return BaseApi
+     * @throws \LoLApi\Exception\AbstractRateLimitException
      */
     protected function callApiUrl($url, array $queryParameters = [], $global = false, $status = false)
     {
-        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : $status ? $this->apiClient->getStatusUrl() : '';
+        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : ($status ? $this->apiClient->getStatusUrl() : '');
         $url             = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters);
