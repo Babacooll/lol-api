@@ -15,7 +15,7 @@ class ApiResult
     protected $httpResponse;
 
     /** @var array */
-    protected $result;
+    public $result;
 
     /** @var string */
     protected $url;
