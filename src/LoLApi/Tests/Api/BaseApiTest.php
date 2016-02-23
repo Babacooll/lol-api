@@ -32,6 +32,7 @@ class BaseApiTest extends AbstractApiTest
      * @covers       LoLApi\Api\StaticDataApi
      * @covers       LoLApi\Api\LeagueApi
      * @covers       LoLApi\Api\StatusApi
+     * @covers       LoLApi\Api\ChampionMasteryApi
      */
     public function testAll($api, $method, array $options = [])
     {
