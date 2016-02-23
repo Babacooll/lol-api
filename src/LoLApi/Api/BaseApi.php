@@ -73,13 +73,13 @@ abstract class BaseApi
 
     /**
      * @param string                 $fullUrl
-     * @param array                  $result
+     * @param mixed                  $result
      * @param bool                   $fetchedFromCache
      * @param ResponseInterface|null $response
      *
      * @return $this
      */
-    protected function buildApiResult($fullUrl, array $result, $fetchedFromCache, ResponseInterface $response = null)
+    protected function buildApiResult($fullUrl, $result, $fetchedFromCache, ResponseInterface $response = null)
     {
         return (new ApiResult())
             ->setResult($result)

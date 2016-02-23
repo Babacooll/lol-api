@@ -6,6 +6,7 @@ use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
+use LoLApi\Api\ChampionMasteryApi;
 use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\GameApi;
@@ -17,6 +18,7 @@ use LoLApi\Api\StatsApi;
 use LoLApi\Api\StatusApi;
 use LoLApi\Api\SummonerApi;
 use LoLApi\Api\TeamApi;
+use LoLApi\Exception\InvalidRegionException;
 use LoLApi\Result\ApiResult;
 
 /**
@@ -79,12 +81,12 @@ class ApiClient
      * @param CacheProvider $cacheProvider
      * @param Client        $client
      *
-     * @throws \Exception
+     * @throws InvalidRegionException
      */
     public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
-            throw new \Exception(sprintf('Invalid region %s', $region));
+            throw new InvalidRegionException(sprintf('Invalid region %s', $region));
         }
 
         $this->region        = $region;
@@ -227,6 +229,14 @@ class ApiClient
     public function getStatusApi()
     {
         return new StatusApi($this);
+    }
+
+    /**
+     * @return ChampionMasteryApi
+     */
+    public function getChampionMasteryApi()
+    {
+        return new ChampionMasteryApi($this);
     }
 
     /**

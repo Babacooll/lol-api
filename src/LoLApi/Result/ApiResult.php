@@ -14,7 +14,7 @@ class ApiResult
     /** @var ResponseInterface */
     protected $httpResponse;
 
-    /** @var array */
+    /** @var mixed */
     protected $result;
 
     /** @var string */
@@ -44,7 +44,7 @@ class ApiResult
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getResult()
     {
@@ -52,7 +52,7 @@ class ApiResult
     }
 
     /**
-     * @param array $result
+     * @param mixed $result
      *
      * @return $this
      */

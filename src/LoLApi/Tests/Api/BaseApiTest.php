@@ -32,6 +32,7 @@ class BaseApiTest extends AbstractApiTest
      * @covers       LoLApi\Api\StaticDataApi
      * @covers       LoLApi\Api\LeagueApi
      * @covers       LoLApi\Api\StatusApi
+     * @covers       LoLApi\Api\ChampionMasteryApi
      */
     public function testAll($api, $method, array $options = [])
     {
@@ -56,12 +57,12 @@ class BaseApiTest extends AbstractApiTest
 
     /**
      * @covers LoLApi\Api\BaseApi::callApiUrl
+     *
+     * @expectedException \LoLApi\Exception\ServiceRateLimitException
      */
     public function testWithRateLimitException()
     {
         $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
-
-        $this->setExpectedException('LoLApi\Exception\ServiceRateLimitException');
 
         $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
     }
@@ -391,6 +392,40 @@ class BaseApiTest extends AbstractApiTest
                 'getShardsByRegion',
                 [
                     'euw'
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionMastery',
+                [
+                    'EUW1',
+                    5,
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionsMasteries',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionsMasteriesScore',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getTopChampionsMasteries',
+                [
+                    'EUW1',
+                    5,
+                    4
                 ]
             ]
         ];

@@ -31,6 +31,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getStaticDataApi
      * @covers LoLApi\ApiClient::getLeagueApi
      * @covers LoLApi\ApiClient::getStatusApi
+     * @covers LoLApi\ApiClient::getChampionMasteryApi
      */
     public function testApiGetters()
     {
@@ -48,6 +49,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('LoLApi\Api\StaticDataApi', $apiClient->getStaticDataApi());
         $this->assertInstanceOf('LoLApi\Api\LeagueApi', $apiClient->getLeagueApi());
         $this->assertInstanceOf('LoLApi\Api\StatusApi', $apiClient->getStatusApi());
+        $this->assertInstanceOf('LoLApi\Api\ChampionMasteryApi', $apiClient->getChampionMasteryApi());
     }
 
     /**
@@ -112,11 +114,11 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LoLApi\ApiClient::__construct
+     *
+     * @expectedException \LoLApi\Exception\InvalidRegionException
      */
     public function testInvalidRegion()
     {
-        $this->setExpectedException('\Exception');
-
         new ApiClient('test', 'test');
     }
 
