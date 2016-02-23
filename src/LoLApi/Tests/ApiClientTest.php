@@ -112,11 +112,11 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers LoLApi\ApiClient::__construct
+     *
+     * @expectedException \LoLApi\Exception\InvalidRegionException
      */
     public function testInvalidRegion()
     {
-        $this->setExpectedException('\Exception');
-
         new ApiClient('test', 'test');
     }
 

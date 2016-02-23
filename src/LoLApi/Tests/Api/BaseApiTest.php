@@ -56,12 +56,12 @@ class BaseApiTest extends AbstractApiTest
 
     /**
      * @covers LoLApi\Api\BaseApi::callApiUrl
+     *
+     * @expectedException \LoLApi\Exception\ServiceRateLimitException
      */
     public function testWithRateLimitException()
     {
         $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
-
-        $this->setExpectedException('LoLApi\Exception\ServiceRateLimitException');
 
         $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
     }
