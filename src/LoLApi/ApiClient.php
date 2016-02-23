@@ -6,6 +6,7 @@ use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
+use LoLApi\Api\ChampionMasteryApi;
 use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\GameApi;
@@ -227,6 +228,14 @@ class ApiClient
     public function getStatusApi()
     {
         return new StatusApi($this);
+    }
+
+    /**
+     * @return ChampionMasteryApi
+     */
+    public function getChampionMasteryApi()
+    {
+        return new ChampionMasteryApi($this);
     }
 
     /**

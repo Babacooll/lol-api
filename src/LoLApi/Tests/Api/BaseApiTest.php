@@ -392,6 +392,40 @@ class BaseApiTest extends AbstractApiTest
                 [
                     'euw'
                 ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionMastery',
+                [
+                    'EUW1',
+                    5,
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionsMasteries',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getChampionsMasteriesScore',
+                [
+                    'EUW1',
+                    5
+                ]
+            ],
+            [
+                'getChampionMasteryApi',
+                'getTopChampionsMasteries',
+                [
+                    'EUW1',
+                    5,
+                    4
+                ]
             ]
         ];
     }

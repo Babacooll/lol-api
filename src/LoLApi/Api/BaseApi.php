@@ -51,6 +51,8 @@ abstract class BaseApi
         try {
             $response = $this->apiClient->getHttpClient()->get($url, ['query' => $queryParameters]);
 
+            var_dump((string) $response->getBody());
+
             return $this->buildApiResult($fullUrl, json_decode((string) $response->getBody(), true), false, $response);
         } catch (ClientException $e) {
             throw (new ClientExceptionHandler())->handleClientException($e);
@@ -73,13 +75,13 @@ abstract class BaseApi
 
     /**
      * @param string                 $fullUrl
-     * @param array                  $result
+     * @param mixed                  $result
      * @param bool                   $fetchedFromCache
      * @param ResponseInterface|null $response
      *
      * @return $this
      */
-    protected function buildApiResult($fullUrl, array $result, $fetchedFromCache, ResponseInterface $response = null)
+    protected function buildApiResult($fullUrl, $result, $fetchedFromCache, ResponseInterface $response = null)
     {
         return (new ApiResult())
             ->setResult($result)
