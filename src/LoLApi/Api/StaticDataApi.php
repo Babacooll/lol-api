@@ -23,7 +23,7 @@ class StaticDataApi extends BaseApi
     const API_URL_STATIC_DATA_MASTERY_BY_ID = '/api/lol/static-data/{region}/v1.2/mastery/{masteryId}';
     const API_URL_STATIC_DATA_REALM = '/api/lol/static-data/{region}/v1.2/realm';
     const API_URL_STATIC_DATA_RUNES = '/api/lol/static-data/{region}/v1.2/rune';
-    const API_URL_STATIC_DATA_RUNE_BY_ID = '/api/lol/static-data/{region}/v1.2/rune/{masteryId}';
+    const API_URL_STATIC_DATA_RUNE_BY_ID = '/api/lol/static-data/{region}/v1.2/rune/{runeId}';
     const API_URL_STATIC_DATA_SUMMONER_SPELLS = '/api/lol/static-data/{region}/v1.2/summoner-spell';
     const API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID = '/api/lol/static-data/{region}/v1.2/summoner-spell/{summonerSpellId}';
     const API_URL_STATIC_DATA_VERSIONS = '/api/lol/static-data/{region}/v1.2/versions';
