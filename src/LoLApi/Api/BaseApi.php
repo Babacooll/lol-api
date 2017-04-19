@@ -3,10 +3,10 @@
 namespace LoLApi\Api;
 
 use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\ResponseInterface;
 use LoLApi\ApiClient;
 use LoLApi\Handler\ClientExceptionHandler;
 use LoLApi\Result\ApiResult;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class BaseApi
@@ -34,7 +34,7 @@ abstract class BaseApi
      * @param bool   $global
      * @param bool   $status
      *
-     * @return BaseApi
+     * @return ApiResult
      * @throws \LoLApi\Exception\AbstractRateLimitException
      */
     protected function callApiUrl($url, array $queryParameters = [], $global = false, $status = false)
@@ -66,7 +66,7 @@ abstract class BaseApi
      */
     protected function buildUri($url, array $queryParameters, $global = false)
     {
-        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrlWithRegion();
+        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrlWithPlatformId();
 
         return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }
@@ -77,7 +77,7 @@ abstract class BaseApi
      * @param bool                   $fetchedFromCache
      * @param ResponseInterface|null $response
      *
-     * @return $this
+     * @return ApiResult
      */
     protected function buildApiResult($fullUrl, $result, $fetchedFromCache, ResponseInterface $response = null)
     {
@@ -85,6 +85,7 @@ abstract class BaseApi
             ->setResult($result)
             ->setUrl($fullUrl)
             ->setHttpResponse($response)
-            ->setFetchedFromCache($fetchedFromCache);
+            ->setFetchedFromCache($fetchedFromCache)
+        ;
     }
 }

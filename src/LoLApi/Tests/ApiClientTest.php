@@ -66,7 +66,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::REGION, $apiClient->getRegion());
         $this->assertEquals(self::API_KEY, $apiClient->getApiKey());
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
-        $this->assertSame('https://global.api.pvp.net', $apiClient->getGlobalUrl());
+        $this->assertSame('https://global.api.riotgames.com', $apiClient->getGlobalUrl());
         $this->assertSame('http://status.leagueoflegends.com', $apiClient->getStatusUrl());
     }
 
@@ -100,16 +100,16 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LoLApi\ApiClient::getBaseUrlWithRegion
+     * @covers LoLApi\ApiClient::getBaseUrlWithPlatformId
      */
-    public function testGetBaseUrlWithRegion()
+    public function testGetBaseUrlWithPlatformId()
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
         $class     = new \ReflectionClass('LoLApi\ApiClient');
-        $method    = $class->getMethod('getBaseUrlWithRegion');
+        $method    = $class->getMethod('getBaseUrlWithPlatformId');
         $method->setAccessible(true);
 
-        $this->assertEquals('https://euw.api.pvp.net', $method->invoke($apiClient));
+        $this->assertEquals('https://euw1.api.riotgames.com', $method->invoke($apiClient));
     }
 
     /**
