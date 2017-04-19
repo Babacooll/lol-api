@@ -11,8 +11,10 @@ use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\FeaturedGamesApi;
 use LoLApi\Api\GameApi;
 use LoLApi\Api\LeagueApi;
+use LoLApi\Api\MasteryApi;
 use LoLApi\Api\MatchApi;
 use LoLApi\Api\MatchListApi;
+use LoLApi\Api\RuneApi;
 use LoLApi\Api\StaticDataApi;
 use LoLApi\Api\StatsApi;
 use LoLApi\Api\StatusApi;
@@ -217,11 +219,19 @@ class ApiClient
     }
 
     /**
-     * @return TeamApi
+     * @return MasteryApi
      */
-    public function getTeamApi()
+    public function getMasteriesApi()
     {
-        return new TeamApi($this);
+        return new MasteryApi($this);
+    }
+
+    /**
+     * @return RuneApi
+     */
+    public function getRunesApi()
+    {
+        return new RuneApi($this);
     }
 
     /**

@@ -45,7 +45,8 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('LoLApi\Api\GameApi', $apiClient->getGameApi());
         $this->assertInstanceOf('LoLApi\Api\StatsApi', $apiClient->getStatsApi());
         $this->assertInstanceOf('LoLApi\Api\CurrentGameApi', $apiClient->getCurrentGameApi());
-        $this->assertInstanceOf('LoLApi\Api\TeamApi', $apiClient->getTeamApi());
+        $this->assertInstanceOf('LoLApi\Api\MasteryApi', $apiClient->getMasteriesApi());
+        $this->assertInstanceOf('LoLApi\Api\RuneApi', $apiClient->getRunesApi());
         $this->assertInstanceOf('LoLApi\Api\StaticDataApi', $apiClient->getStaticDataApi());
         $this->assertInstanceOf('LoLApi\Api\LeagueApi', $apiClient->getLeagueApi());
         $this->assertInstanceOf('LoLApi\Api\StatusApi', $apiClient->getStatusApi());
