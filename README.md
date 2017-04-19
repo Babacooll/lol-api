@@ -42,16 +42,14 @@ $apiClient = new \LoLApi\ApiClient(\LoLApi\ApiClient::REGION_EUW, 'my-key');
 
 $apiClient->getMatchListApi()->getMatchListBySummonerId(2);
 $apiClient->getMatchApi()->getMatchByMatchId(2, true);
-$apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
-$apiClient->getSummonerApi()->getSummonersBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersMasteriesBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersNamesBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersRunesBySummonerIds([2]);
+$apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
+$apiClient->getSummonerApi()->getSummonerBySummonerId(2);
+$apiClient->getMasteriesApi()->getMasteriesBySummonerId(2);
+$apiClient->getRunesApi()->getRunesBySummonerId(2);
+$apiClient->getSummonerApi()->getSummonerNameBySummonerId(2);
 $apiClient->getChampionApi()->getChampionById(20);
 $apiClient->getFeaturedGamesApi()->getFeaturedGames();
 $apiClient->getStatsApi()->getRankedStatsBySummonerId(2);
-$apiClient->getTeamApi()->getTeamsBySummonersIds([2]);
-$apiClient->getTeamApi()->getTeamsByTeamsIds(['T1']);
 $apiClient->getGameApi()->getRecentGamesBySummonerId(2);
 $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2);
 ```
@@ -72,13 +70,13 @@ $client = new \Predis\Client([
 $apiClient->setCacheProvider(new \Doctrine\Common\Cache\PredisCache($client));
 
 // This will call the API and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
+$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames('MySummonerName');
 
 // Let's cache this result for 60 seconds into Redis
 $apiClient->cacheApiResult($result, 60);
 
 // This will fetch the data from Redis and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
+$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames('MySummonerName');
 ```
 
 The default ttl value **cacheApiResult()** method is 60 seconds.
@@ -110,7 +108,7 @@ for ($i = 0; $i < 100; $i++) {
 | [Match API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
 | [Champion API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Stats API](https://developer.riotgames.com/api/methods#)     | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
+| [Stats API](https://developer.riotgames.com/api/methods#)     | ![v1.3](https://img.shields.io/badge/v1.3-removed_soon-orange.svg)|  
 | [Team API](https://developer.riotgames.com/api/methods#)      | ![removed](https://img.shields.io/badge/v2.4-removed-red.svg)|  
 | [Game API](https://developer.riotgames.com/api/methods#)      | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
 | [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
