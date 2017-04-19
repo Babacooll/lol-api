@@ -27,7 +27,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getGameApi
      * @covers LoLApi\ApiClient::getStatsApi
      * @covers LoLApi\ApiClient::getCurrentGameApi
-     * @covers LoLApi\ApiClient::getTeamApi
      * @covers LoLApi\ApiClient::getStaticDataApi
      * @covers LoLApi\ApiClient::getLeagueApi
      * @covers LoLApi\ApiClient::getStatusApi

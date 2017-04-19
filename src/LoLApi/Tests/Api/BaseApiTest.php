@@ -126,20 +126,6 @@ class BaseApiTest extends AbstractApiTest
                     'SEASON2015'
                 ]
             ],
-            [
-                'getTeamApi',
-                'getTeamsBySummonersIds',
-                [
-                    [5]
-                ]
-            ],
-            [
-                'getTeamApi',
-                'getTeamsByTeamsIds',
-                [
-                    [5]
-                ]
-            ],
         ];
     }
 
@@ -322,24 +308,6 @@ class BaseApiTest extends AbstractApiTest
             [
                 'getLeagueApi',
                 'getLeagueEntriesBySummonersIds',
-                [
-                    [
-                        5
-                    ]
-                ]
-            ],
-            [
-                'getLeagueApi',
-                'getLeagueByTeamsIds',
-                [
-                    [
-                        5
-                    ]
-                ]
-            ],
-            [
-                'getLeagueApi',
-                'getLeagueEntriesByTeamsIds',
                 [
                     [
                         5
