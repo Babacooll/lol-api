@@ -40,7 +40,7 @@ class LeagueApi extends BaseApi
 
         return $this->callApiUrl($url, []);
     }
-    
+
     /**
      * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)
      *

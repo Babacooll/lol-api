@@ -19,7 +19,7 @@ class RuneApi extends BaseApi
      *
      * @return ApiResult
      */
-    public function getLeagueBySummonersIds($summonerId)
+    public function getRunesBySummonerId($summonerId)
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_RUNES_BY_SUMMONER_ID);
 

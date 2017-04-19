@@ -19,7 +19,7 @@ class MasteryApi extends BaseApi
      *
      * @return ApiResult
      */
-    public function getLeagueBySummonersIds($summonerId)
+    public function getMasteriesBySummonerId($summonerId)
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_MASTERIES_BY_SUMMONER_ID);
 
