@@ -40,21 +40,15 @@ abstract class BaseApi
      */
     protected function callApiUrl($url, array $queryParameters = [], $endpointStandardization = false, $global = false, $status = false)
     {
-        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : ($status ? $this->apiClient->getStatusUrl() : $this->apiClient->getBaseUrl($endpointStandardization));
-
-        if ($endpointStandardization === true) {
-            $baseUrl = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
-        }
-
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
-        $fullUrl         = $this->buildUri($baseUrl, $queryParameters);
-
+        $fullUrl         = $this->buildUri($url, $queryParameters, $global, $endpointStandardization);
+        
         if ($this->apiClient->getCacheProvider()->contains($fullUrl)) {
             return $this->buildApiResult($fullUrl, json_decode($this->apiClient->getCacheProvider()->fetch($fullUrl), true), true);
         }
 
         try {
-            $response = $this->apiClient->getHttpClient()->get($url, ['query' => $queryParameters]);
+            $response = $this->apiClient->getHttpClient()->get($fullUrl);
 
             return $this->buildApiResult($fullUrl, json_decode((string) $response->getBody(), true), false, $response);
         } catch (ClientException $e) {
