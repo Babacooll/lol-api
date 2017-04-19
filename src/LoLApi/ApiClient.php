@@ -87,6 +87,11 @@ class ApiClient
     protected $region;
 
     /**
+     * @var bool
+     */
+    protected $endpointStandardization;
+
+    /**
      * @var string
      */
     protected $apiKey;
@@ -106,19 +111,21 @@ class ApiClient
      * @param string        $apiKey
      * @param CacheProvider $cacheProvider
      * @param Client        $client
+     * @param bool          $endpointStandardization
      *
      * @throws InvalidRegionException
      */
-    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
+    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null, $endpointStandardization = false)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new InvalidRegionException(sprintf('Invalid region %s', $region));
         }
 
-        $this->region        = $region;
-        $this->httpClient    = $client ? $client : new Client(['base_uri' => $this->getBaseUrlWithPlatformId()]);
-        $this->apiKey        = $apiKey;
-        $this->cacheProvider = $cacheProvider ? $cacheProvider : new VoidCache();
+        $this->endpointStandardization = $endpointStandardization;
+        $this->region                  = $region;
+        $this->httpClient              = $client ? $client : new Client();
+        $this->apiKey                  = $apiKey;
+        $this->cacheProvider           = $cacheProvider ? $cacheProvider : new VoidCache();
     }
 
     /**
@@ -266,11 +273,17 @@ class ApiClient
     }
 
     /**
+     * @param bool $endpointStandardization
+     *
      * @return string
      */
-    public function getBaseUrlWithPlatformId()
+    public function getBaseUrl($endpointStandardization = false)
     {
-        return 'https://' . $this->getPlatformId($this->region) . '.api.riotgames.com';
+        if ($endpointStandardization === true) {
+            return 'https://' . self::$regionsWithIds[$this->region] . '.api.riotgames.com';
+        }
+
+        return 'https://' . $this->region . '.api.pvp.net';
     }
 
     /**
@@ -296,15 +309,5 @@ class ApiClient
     public function cacheApiResult(ApiResult $apiResult, $ttl = 60)
     {
         $this->cacheProvider->save($apiResult->getUrl(), json_encode($apiResult->getResult()), $ttl);
-    }
-
-    /**
-     * @param $region
-     *
-     * @return string
-     */
-    private function getPlatformId($region)
-    {
-        return self::$regionsWithIds[$region];
     }
 }

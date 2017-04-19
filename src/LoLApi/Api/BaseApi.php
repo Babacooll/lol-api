@@ -31,18 +31,23 @@ abstract class BaseApi
     /**
      * @param string $url
      * @param array  $queryParameters
+     * @param bool   $endpointStandardization (https://discussion.developer.riotgames.com/articles/652/riot-games-api-v3.html)
      * @param bool   $global
      * @param bool   $status
      *
      * @return ApiResult
      * @throws \LoLApi\Exception\AbstractRateLimitException
      */
-    protected function callApiUrl($url, array $queryParameters = [], $global = false, $status = false)
+    protected function callApiUrl($url, array $queryParameters = [], $endpointStandardization = false, $global = false, $status = false)
     {
-        $baseUrl         = $global ? $this->apiClient->getGlobalUrl() : ($status ? $this->apiClient->getStatusUrl() : '');
-        $url             = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
+        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : ($status ? $this->apiClient->getStatusUrl() : $this->apiClient->getBaseUrl($endpointStandardization));
+
+        if ($endpointStandardization === true) {
+            $baseUrl = $baseUrl . str_replace('{region}', $this->apiClient->getRegion(), $url);
+        }
+
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
-        $fullUrl         = $this->buildUri($url, $queryParameters);
+        $fullUrl         = $this->buildUri($baseUrl, $queryParameters);
 
         if ($this->apiClient->getCacheProvider()->contains($fullUrl)) {
             return $this->buildApiResult($fullUrl, json_decode($this->apiClient->getCacheProvider()->fetch($fullUrl), true), true);
@@ -64,9 +69,9 @@ abstract class BaseApi
      *
      * @return string
      */
-    protected function buildUri($url, array $queryParameters, $global = false)
+    protected function buildUri($url, array $queryParameters, $global = false, $endpointStandardization = false)
     {
-        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrlWithPlatformId();
+        $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrl($endpointStandardization);
 
         return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }
