@@ -180,39 +180,25 @@ class BaseApiTest extends AbstractApiTest
             ],
             [
                 'getSummonerApi',
-                'getSummonersBySummonerNames',
+                'getSummonerBySummonerName',
                 [
-                    ['test']
+                    'test'
                 ]
             ],
             [
                 'getSummonerApi',
-                'getSummonersBySummonerIds',
+                'getSummonerBySummonerId',
                 [
-                    [5]
+                    5
                 ]
             ],
             [
                 'getSummonerApi',
-                'getSummonersMasteriesBySummonerIds',
+                'getSummonerByAccountId',
                 [
-                    [5]
+                    5
                 ]
             ],
-            [
-                'getSummonerApi',
-                'getSummonersNamesBySummonerIds',
-                [
-                    [5]
-                ]
-            ],
-            [
-                'getSummonerApi',
-                'getSummonersRunesBySummonerIds',
-                [
-                    [5]
-                ]
-            ]
         ];
     }
 

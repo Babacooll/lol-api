@@ -105,7 +105,7 @@ for ($i = 0; $i < 100; $i++) {
 
 | API        | Version           |
 | ------------- |-------------| 
-| [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v1.4](https://img.shields.io/badge/v1.4-latest-green.svg)|  
+| [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [MatchList API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
 | [Match API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
 | [Champion API](https://developer.riotgames.com/api/methods#)      | ![v1.2](https://img.shields.io/badge/v1.2-latest-green.svg)|  

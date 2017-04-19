@@ -12,69 +12,43 @@ use LoLApi\Result\ApiResult;
  */
 class SummonerApi extends BaseApi
 {
-    const API_URL_SUMMONERS_BY_NAMES = '/api/lol/{region}/v1.4/summoner/by-name/{summonerNames}';
-    const API_URL_SUMMONERS_BY_IDS = '/api/lol/{region}/v1.4/summoner/{summonerIds}';
-    const API_URL_SUMMONERS_MASTERIES_BY_IDS = '/api/lol/{region}/v1.4/summoner/{summonerIds}/masteries';
-    const API_URL_SUMMONERS_NAMES_BY_IDS = '/api/lol/{region}/v1.4/summoner/{summonerIds}/name';
-    const API_URL_SUMMONERS_RUNES_BY_IDS = '/api/lol/{region}/v1.4/summoner/{summonerIds}/runes';
+    const API_URL_SUMMONER_BY_NAME = '/lol/summoner/v3/summoners/by-name/{summonerName}';
+    const API_URL_SUMMONER_BY_ID = '/lol/summoner/v3/summoners/{summonerId}';
+    const API_URL_SUMMONER_BY_ACCOUNT_ID = '/lol/summoner/v3/summoners/by-account/{accountId}';
 
     /**
-     * @param array $summonerNames
+     * @param string $summonerName
      *
      * @return ApiResult
      */
-    public function getSummonersBySummonerNames(array $summonerNames = [])
+    public function getSummonerBySummonerName($summonerName)
     {
-        $url = str_replace('{summonerNames}', implode(',', $summonerNames), self::API_URL_SUMMONERS_BY_NAMES);
+        $url = str_replace('{summonerName}', $summonerName, self::API_URL_SUMMONER_BY_NAME);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
-     * @param array $summonerIds
+     * @param string $summonerId
      *
      * @return ApiResult
      */
-    public function getSummonersBySummonerIds(array $summonerIds = [])
+    public function getSummonerBySummonerId($summonerId)
     {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_BY_IDS);
+        $url = str_replace('{summonerId}', $summonerId, self::API_URL_SUMMONER_BY_ID);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
-     * @param array $summonerIds
+     * @param string $accountId
      *
      * @return ApiResult
      */
-    public function getSummonersMasteriesBySummonerIds(array $summonerIds = [])
+    public function getSummonerByAccountId($accountId)
     {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_MASTERIES_BY_IDS);
+        $url = str_replace('{accountId}', $accountId, self::API_URL_SUMMONER_BY_ACCOUNT_ID);
 
-        return $this->callApiUrl($url, []);
-    }
-
-    /**
-     * @param array $summonerIds
-     *
-     * @return ApiResult
-     */
-    public function getSummonersNamesBySummonerIds(array $summonerIds = [])
-    {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_NAMES_BY_IDS);
-
-        return $this->callApiUrl($url, []);
-    }
-
-    /**
-     * @param array $summonerIds
-     *
-     * @return ApiResult
-     */
-    public function getSummonersRunesBySummonerIds(array $summonerIds = [])
-    {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_SUMMONERS_RUNES_BY_IDS);
-
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 }
