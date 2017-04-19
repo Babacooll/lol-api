@@ -42,7 +42,7 @@ abstract class BaseApi
     {
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters, $global, $endpointStandardization);
-        
+
         if ($this->apiClient->getCacheProvider()->contains($fullUrl)) {
             return $this->buildApiResult($fullUrl, json_decode($this->apiClient->getCacheProvider()->fetch($fullUrl), true), true);
         }
@@ -67,6 +67,10 @@ abstract class BaseApi
     {
         $baseUrl = $global ? $this->apiClient->getGlobalUrl() : $this->apiClient->getBaseUrl($endpointStandardization);
 
+        if ($endpointStandardization === false) {
+            $url = str_replace('{region}', $this->apiClient->getRegion(), $url);
+        }
+        
         return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }
 
