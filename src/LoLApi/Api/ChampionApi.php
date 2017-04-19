@@ -12,8 +12,8 @@ use LoLApi\Result\ApiResult;
  */
 class ChampionApi extends BaseApi
 {
-    const API_URL_CHAMPIONS_ALL = '/api/lol/{region}/v1.2/champion';
-    const API_URL_CHAMPION_BY_ID = '/api/lol/{region}/v1.2/champion/{championId}';
+    const API_URL_CHAMPIONS_ALL = '/lol/platform/v3/champions';
+    const API_URL_CHAMPION_BY_ID = '/lol/platform/v3/champions/{id}';
 
     /**
      * @param bool $onlyFreeToPlay
@@ -23,7 +23,7 @@ class ChampionApi extends BaseApi
     public function getAllChampions($onlyFreeToPlay = false)
     {
         // The json_encode trick is here to change the boolean to a string representation of the boolean
-        return $this->callApiUrl(self::API_URL_CHAMPIONS_ALL, ['freeToPlay' => json_encode($onlyFreeToPlay)]);
+        return $this->callApiUrl(self::API_URL_CHAMPIONS_ALL, ['freeToPlay' => json_encode($onlyFreeToPlay)], true);
     }
 
     /**
@@ -33,8 +33,8 @@ class ChampionApi extends BaseApi
      */
     public function getChampionById($championId)
     {
-        $url = str_replace('{championId}', $championId, self::API_URL_CHAMPION_BY_ID);
+        $url = str_replace('{id}', $championId, self::API_URL_CHAMPION_BY_ID);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 }
