@@ -70,7 +70,7 @@ abstract class BaseApi
         if ($endpointStandardization === false) {
             $url = str_replace('{region}', $this->apiClient->getRegion(), $url);
         }
-        
+
         return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }
 
