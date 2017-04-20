@@ -60,6 +60,7 @@ abstract class BaseApi
      * @param string $url
      * @param array  $queryParameters
      * @param bool   $global
+     * @param bool   $endpointStandardization
      *
      * @return string
      */
