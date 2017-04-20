@@ -8,7 +8,7 @@ use LoLApi\Result\ApiResult;
  * Class ChampionMasteryApi
  *
  * @package LoLApi\Api
- * @see     https://developer.riotgames.com/api/methods
+ * @see     https://developer.riotgames.com/api-methods/
  */
 class ChampionMasteryApi extends BaseApi
 {

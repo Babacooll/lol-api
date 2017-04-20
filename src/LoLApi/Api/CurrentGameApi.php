@@ -8,7 +8,7 @@ use LoLApi\Result\ApiResult;
  * Class CurrentGameApi
  *
  * @package LoLApi\Api
- * @see     https://developer.riotgames.com/api/methods
+ * @see     https://developer.riotgames.com/api-methods/
  */
 class CurrentGameApi extends BaseApi
 {
