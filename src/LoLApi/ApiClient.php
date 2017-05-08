@@ -297,22 +297,6 @@ class ApiClient
     }
 
     /**
-     * @return string
-     */
-    public function getGlobalUrl()
-    {
-        return 'https://global.api.riotgames.com';
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusUrl()
-    {
-        return 'http://status.leagueoflegends.com';
-    }
-
-    /**
      * @param ApiResult $apiResult
      * @param int       $ttl
      */

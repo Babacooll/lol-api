@@ -55,7 +55,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getApiKey
      * @covers LoLApi\ApiClient::getHttpClient
      * @covers LoLApi\ApiClient::getGlobalUrl
-     * @covers LoLApi\ApiClient::getStatusUrl
      */
     public function testOtherGetters()
     {
@@ -64,8 +63,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::REGION, $apiClient->getRegion());
         $this->assertEquals(self::API_KEY, $apiClient->getApiKey());
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
-        $this->assertSame('https://global.api.riotgames.com', $apiClient->getGlobalUrl());
-        $this->assertSame('http://status.leagueoflegends.com', $apiClient->getStatusUrl());
     }
 
     /**
