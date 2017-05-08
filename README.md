@@ -103,17 +103,17 @@ for ($i = 0; $i < 100; $i++) {
 
 | API        | Version           |
 | ------------- |-------------| 
-| [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Match API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
-| [Champion API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [League API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Status API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Champion Mastery API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Masteries API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [Runes API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Summoner API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Match API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
+| [Champion API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Featured games API](https://developer.riotgames.com/api-methods/)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
+| [Current game API](https://developer.riotgames.com/api-methods/)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
+| [Static Data API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [League API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Status API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Champion Mastery API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Masteries API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Runes API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 
 ### Contributing
 
