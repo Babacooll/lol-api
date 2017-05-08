@@ -19,7 +19,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     const API_KEY = 'test';
 
     /**
-     * @covers LoLApi\ApiClient::getMatchListApi
      * @covers LoLApi\ApiClient::getMatchApi
      * @covers LoLApi\ApiClient::getSummonerApi
      * @covers LoLApi\ApiClient::getChampionApi
@@ -34,7 +33,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
 
-        $this->assertInstanceOf('LoLApi\Api\MatchListApi', $apiClient->getMatchListApi());
         $this->assertInstanceOf('LoLApi\Api\MatchApi', $apiClient->getMatchApi());
         $this->assertInstanceOf('LoLApi\Api\SummonerApi', $apiClient->getSummonerApi());
         $this->assertInstanceOf('LoLApi\Api\ChampionApi', $apiClient->getChampionApi());

@@ -32,15 +32,33 @@ class MatchApi extends BaseApi
     }
 
     /**
-     * Get matchlist for ranked games played on given account ID
-     * and platform ID and filtered using given filter parameters, if any.
+     * @param int   $accountId
+     * @param array $championIds
+     * @param array $rankedQueues
+     * @param array $seasons
+     * @param int   $beginTime
+     * @param int   $endTime
+     * @param int   $beginIndex
+     * @param int   $endIndex
      *
-     * @throws \Exception
+     * @return ApiResult
      */
-    public function getMatchlistByAccountId()
+    public function getMatchListByAccountId($accountId, array $championIds = [], array $rankedQueues = [], array $seasons = [], $beginTime = null, $endTime = null, $beginIndex = null, $endIndex = null)
     {
-        throw new \Exception("Method not implemented yet");
+        $url             = str_replace('{accountId}', $accountId, self::API_URL_MATCH_LIST_BY_ACCOUNT);
+        $queryParameters = [];
+
+        $queryParameters['championIds']  = implode(',', $championIds);
+        $queryParameters['rankedQueues'] = implode(',', $rankedQueues);
+        $queryParameters['seasons']      = implode(',', $seasons);
+        $queryParameters['beginTime']    = $beginTime;
+        $queryParameters['endTime']      = $endTime;
+        $queryParameters['beginIndex']   = $beginIndex;
+        $queryParameters['endIndex']     = $endIndex;
+
+        return $this->callApiUrl($url, array_filter($queryParameters));
     }
+
 
     /**
      * Get matchlist for last 20 matches played on given account ID and platform ID.

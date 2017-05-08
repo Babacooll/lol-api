@@ -40,7 +40,7 @@ To get the result you can call the method **getResult()** on the ApiResult objec
 ```php
 $apiClient = new \LoLApi\ApiClient(\LoLApi\ApiClient::REGION_EUW, 'my-key');
 
-$apiClient->getMatchListApi()->getMatchListBySummonerId(2);
+$apiClient->getMatchApi()->getMatchListBySummonerId(2);
 $apiClient->getMatchApi()->getMatchByMatchId(2, true);
 $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
 $apiClient->getSummonerApi()->getSummonerBySummonerId(2);
@@ -92,7 +92,7 @@ $apiClient = new \LoLApi\ApiClient(\LoLApi\ApiClient::REGION_EUW, 'my-key');
 
 for ($i = 0; $i < 100; $i++) {
     try {
-        $apiClient->getMatchListApi()->getMatchListBySummonerId(2);
+        $apiClient->getMatchApi()->getMatchListByAccountId(2);
     } catch (AbstractRateLimitException $e) {
         sleep($e->getRetryAfter());
     }
@@ -104,7 +104,6 @@ for ($i = 0; $i < 100; $i++) {
 | API        | Version           |
 | ------------- |-------------| 
 | [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
-| [MatchList API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
 | [Match API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
 | [Champion API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  

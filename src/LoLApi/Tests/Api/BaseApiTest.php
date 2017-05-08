@@ -98,8 +98,8 @@ class BaseApiTest extends AbstractApiTest
     {
         return [
             [
-                'getMatchListApi',
-                'getMatchListBySummonerId',
+                'getMatchApi',
+                'getMatchListByAccountId',
                 [
                     5
                 ]
