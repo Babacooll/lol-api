@@ -251,7 +251,7 @@ class ApiClient
      */
     public function getBaseUrl()
     {
-        return 'https://' . self::$regionsWithIds[$this->region] . '.api.riotgames.com';
+        return 'https://'.self::$regionsWithIds[$this->region].'.api.riotgames.com';
     }
 
     /**

@@ -63,7 +63,7 @@ abstract class BaseApi
     {
         $baseUrl = $this->apiClient->getBaseUrl();
 
-        return $baseUrl . $url . '?' . http_build_query($queryParameters);
+        return $baseUrl.$url.'?'.http_build_query($queryParameters);
     }
 
     /**
