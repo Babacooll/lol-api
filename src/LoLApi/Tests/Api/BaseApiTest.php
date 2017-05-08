@@ -51,7 +51,7 @@ class BaseApiTest extends AbstractApiTest
 
         $apiClient = $this->getApiClient($arrayCache, $this->getSuccessfulHttpClient());
 
-        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
+        $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId(5);
     }
 
     /**
@@ -63,7 +63,7 @@ class BaseApiTest extends AbstractApiTest
     {
         $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
 
-        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
+        $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId(5);
     }
 
     /**
@@ -81,10 +81,9 @@ class BaseApiTest extends AbstractApiTest
     {
         return [
             [
-                'getCurrentGameApi',
+                'getSpectatorApi',
                 'getCurrentGameByPlatformIdAndSummonerId',
                 [
-                    'EUW1',
                     5
                 ]
             ],

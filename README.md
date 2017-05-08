@@ -51,7 +51,7 @@ $apiClient->getChampionApi()->getChampionById(20);
 $apiClient->getFeaturedGamesApi()->getFeaturedGames();
 $apiClient->getStatsApi()->getRankedStatsBySummonerId(2);
 $apiClient->getGameApi()->getRecentGamesBySummonerId(2);
-$apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2);
+$apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2);
 ```
 
 #### Use cache

@@ -23,7 +23,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getSummonerApi
      * @covers LoLApi\ApiClient::getChampionApi
      * @covers LoLApi\ApiClient::getFeaturedGamesApi
-     * @covers LoLApi\ApiClient::getCurrentGameApi
+     * @covers LoLApi\ApiClient::getSpectatorApi
      * @covers LoLApi\ApiClient::getStaticDataApi
      * @covers LoLApi\ApiClient::getLeagueApi
      * @covers LoLApi\ApiClient::getStatusApi
@@ -36,8 +36,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('LoLApi\Api\MatchApi', $apiClient->getMatchApi());
         $this->assertInstanceOf('LoLApi\Api\SummonerApi', $apiClient->getSummonerApi());
         $this->assertInstanceOf('LoLApi\Api\ChampionApi', $apiClient->getChampionApi());
-        $this->assertInstanceOf('LoLApi\Api\FeaturedGamesApi', $apiClient->getFeaturedGamesApi());
-        $this->assertInstanceOf('LoLApi\Api\CurrentGameApi', $apiClient->getCurrentGameApi());
+        $this->assertInstanceOf('LoLApi\Api\SpectatorApi', $apiClient->getSpectatorApi());
         $this->assertInstanceOf('LoLApi\Api\MasteryApi', $apiClient->getMasteriesApi());
         $this->assertInstanceOf('LoLApi\Api\RuneApi', $apiClient->getRunesApi());
         $this->assertInstanceOf('LoLApi\Api\StaticDataApi', $apiClient->getStaticDataApi());

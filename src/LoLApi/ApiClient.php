@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
 use LoLApi\Api\ChampionMasteryApi;
 use LoLApi\Api\CurrentGameApi;
-use LoLApi\Api\FeaturedGamesApi;
+use LoLApi\Api\SpectatorApi;
 use LoLApi\Api\GameApi;
 use LoLApi\Api\LeagueApi;
 use LoLApi\Api\MasteryApi;
@@ -171,14 +171,6 @@ class ApiClient
     }
 
     /**
-     * @return MatchListApi
-     */
-    public function getMatchListApi()
-    {
-        return new MatchListApi($this);
-    }
-
-    /**
      * @return MatchApi
      */
     public function getMatchApi()
@@ -203,19 +195,11 @@ class ApiClient
     }
 
     /**
-     * @return FeaturedGamesApi
+     * @return SpectatorApi
      */
     public function getFeaturedGamesApi()
     {
-        return new FeaturedGamesApi($this);
-    }
-
-    /**
-     * @return StatsApi
-     */
-    public function getStatsApi()
-    {
-        return new StatsApi($this);
+        return new SpectatorApi($this);
     }
 
     /**
@@ -235,19 +219,11 @@ class ApiClient
     }
 
     /**
-     * @return GameApi
+     * @return SpectatorApi
      */
-    public function getGameApi()
+    public function getSpectatorApi()
     {
-        return new GameApi($this);
-    }
-
-    /**
-     * @return CurrentGameApi
-     */
-    public function getCurrentGameApi()
-    {
-        return new CurrentGameApi($this);
+        return new SpectatorApi($this);
     }
 
     /**
