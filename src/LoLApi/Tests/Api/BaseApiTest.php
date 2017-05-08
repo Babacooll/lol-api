@@ -302,7 +302,6 @@ class BaseApiTest extends AbstractApiTest
                 'getChampionMasteryApi',
                 'getChampionMastery',
                 [
-                    'EUW1',
                     5,
                     5
                 ]
@@ -311,7 +310,6 @@ class BaseApiTest extends AbstractApiTest
                 'getChampionMasteryApi',
                 'getChampionsMasteries',
                 [
-                    'EUW1',
                     5
                 ]
             ],
@@ -319,7 +317,6 @@ class BaseApiTest extends AbstractApiTest
                 'getChampionMasteryApi',
                 'getChampionsMasteriesScore',
                 [
-                    'EUW1',
                     5
                 ]
             ],

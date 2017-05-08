@@ -92,22 +92,9 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers LoLApi\ApiClient::getBaseUrlWithPlatformId
      */
-    public function testGetBaseUrlWithRegion()
-    {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
-        $class     = new \ReflectionClass('LoLApi\ApiClient');
-        $method    = $class->getMethod('getBaseUrl');
-        $method->setAccessible(true);
-
-        $this->assertEquals('https://euw.api.pvp.net', $method->invoke($apiClient, false));
-    }
-
-    /**
-     * @covers LoLApi\ApiClient::getBaseUrlWithPlatformId
-     */
     public function testGetBaseUrlWithPlatformId()
     {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', null, null, true);
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', null, null);
         $class     = new \ReflectionClass('LoLApi\ApiClient');
         $method    = $class->getMethod('getBaseUrl');
         $method->setAccessible(true);

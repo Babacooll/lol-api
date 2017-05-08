@@ -31,15 +31,14 @@ abstract class BaseApi
     /**
      * @param string $url
      * @param array  $queryParameters
-     * @param bool   $endpointStandardization (https://discussion.developer.riotgames.com/articles/652/riot-games-api-v3.html)
      *
      * @return ApiResult
      * @throws \LoLApi\Exception\AbstractRateLimitException
      */
-    protected function callApiUrl($url, array $queryParameters = [], $endpointStandardization = false)
+    protected function callApiUrl($url, array $queryParameters = [])
     {
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
-        $fullUrl         = $this->buildUri($url, $queryParameters, $endpointStandardization);
+        $fullUrl         = $this->buildUri($url, $queryParameters);
 
         if ($this->apiClient->getCacheProvider()->contains($fullUrl)) {
             return $this->buildApiResult($fullUrl, json_decode($this->apiClient->getCacheProvider()->fetch($fullUrl), true), true);
@@ -57,17 +56,12 @@ abstract class BaseApi
     /**
      * @param string $url
      * @param array  $queryParameters
-     * @param bool   $endpointStandardization
      *
      * @return string
      */
-    protected function buildUri($url, array $queryParameters, $endpointStandardization = false)
+    protected function buildUri($url, array $queryParameters)
     {
-        $baseUrl = $this->apiClient->getBaseUrl($endpointStandardization);
-
-        if ($endpointStandardization === false) {
-            $url = str_replace('{region}', $this->apiClient->getRegion(), $url);
-        }
+        $baseUrl = $this->apiClient->getBaseUrl();
 
         return $baseUrl . $url . '?' . http_build_query($queryParameters);
     }

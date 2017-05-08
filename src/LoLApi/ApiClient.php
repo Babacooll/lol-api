@@ -7,19 +7,14 @@ use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
 use LoLApi\Api\ChampionMasteryApi;
-use LoLApi\Api\CurrentGameApi;
 use LoLApi\Api\SpectatorApi;
-use LoLApi\Api\GameApi;
 use LoLApi\Api\LeagueApi;
 use LoLApi\Api\MasteryApi;
 use LoLApi\Api\MatchApi;
-use LoLApi\Api\MatchListApi;
 use LoLApi\Api\RuneApi;
 use LoLApi\Api\StaticDataApi;
-use LoLApi\Api\StatsApi;
 use LoLApi\Api\StatusApi;
 use LoLApi\Api\SummonerApi;
-use LoLApi\Api\TeamApi;
 use LoLApi\Exception\InvalidRegionException;
 use LoLApi\Result\ApiResult;
 
@@ -89,11 +84,6 @@ class ApiClient
     protected $region;
 
     /**
-     * @var bool
-     */
-    protected $endpointStandardization;
-
-    /**
      * @var string
      */
     protected $apiKey;
@@ -113,17 +103,15 @@ class ApiClient
      * @param string        $apiKey
      * @param CacheProvider $cacheProvider
      * @param Client        $client
-     * @param bool          $endpointStandardization
      *
      * @throws InvalidRegionException
      */
-    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null, $endpointStandardization = false)
+    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new InvalidRegionException(sprintf('Invalid region %s', $region));
         }
 
-        $this->endpointStandardization = $endpointStandardization;
         $this->region                  = $region;
         $this->httpClient              = $client ? $client : new Client();
         $this->apiKey                  = $apiKey;
@@ -259,17 +247,11 @@ class ApiClient
     }
 
     /**
-     * @param bool $endpointStandardization
-     *
      * @return string
      */
-    public function getBaseUrl($endpointStandardization = false)
+    public function getBaseUrl()
     {
-        if ($endpointStandardization === true) {
-            return 'https://' . self::$regionsWithIds[$this->region] . '.api.riotgames.com';
-        }
-
-        return 'https://' . $this->region . '.api.pvp.net';
+        return 'https://' . self::$regionsWithIds[$this->region] . '.api.riotgames.com';
     }
 
     /**
