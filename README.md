@@ -114,7 +114,7 @@ for ($i = 0; $i < 100; $i++) {
 | [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
 | [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [League API](https://developer.riotgames.com/api/methods#)      | ![v2.5](https://img.shields.io/badge/v2.5-latest-green.svg)|  
-| [Status API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
+| [Status API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Champion Mastery API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v*.*-latest-green.svg)|  
 | [Masteries API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Runes API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  

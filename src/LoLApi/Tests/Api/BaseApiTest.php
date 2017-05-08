@@ -334,13 +334,6 @@ class BaseApiTest extends AbstractApiTest
                 'getShards'
             ],
             [
-                'getStatusApi',
-                'getShardsByRegion',
-                [
-                    'euw'
-                ]
-            ],
-            [
                 'getChampionMasteryApi',
                 'getChampionMastery',
                 [
