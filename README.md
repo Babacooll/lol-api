@@ -70,13 +70,13 @@ $client = new \Predis\Client([
 $apiClient->setCacheProvider(new \Doctrine\Common\Cache\PredisCache($client));
 
 // This will call the API and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames('MySummonerName');
+$result = $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
 
 // Let's cache this result for 60 seconds into Redis
 $apiClient->cacheApiResult($result, 60);
 
 // This will fetch the data from Redis and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames('MySummonerName');
+$result = $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
 ```
 
 The default ttl value **cacheApiResult()** method is 60 seconds.
