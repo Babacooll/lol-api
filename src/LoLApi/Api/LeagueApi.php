@@ -12,33 +12,33 @@ use LoLApi\Result\ApiResult;
  */
 class LeagueApi extends BaseApi
 {
-    const API_URL_LEAGUE_BY_SUMMONERS_IDS = '/api/lol/{region}/v2.5/league/by-summoner/{summonerIds}';
-    const API_URL_LEAGUE_ENTRIES_BY_SUMMONERS_IDS = '/api/lol/{region}/v2.5/league/by-summoner/{summonerIds}/entry';
-    const API_URL_LEAGUE_CHALLENGER = '/api/lol/{region}/v2.5/league/challenger';
-    const API_URL_LEAGUE_MASTER = '/api/lol/{region}/v2.5/league/master';
+    const API_URL_LEAGUE_BY_SUMMONER_ID = '/lol/league/v3/leagues/by-summoner/{summonerId}';
+    const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v3/positions/by-summoner/{summonerId}';
+    const API_URL_LEAGUE_CHALLENGER = '/lol/league/v3/challengerleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_MASTER = '/lol/league/v3/masterleagues/by-queue/{queue}';
 
     /**
-     * @param array $summonerIds
+     * @param int $summonerId
      *
      * @return ApiResult
      */
-    public function getLeagueBySummonersIds(array $summonerIds = [])
+    public function getLeagueBySummonerId($summonerId)
     {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_LEAGUE_BY_SUMMONERS_IDS);
+        $url = str_replace('{summonerId}', $summonerId, self::API_URL_LEAGUE_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
-     * @param array $summonerIds
+     * @param int $summonerId
      *
      * @return ApiResult
      */
-    public function getLeagueEntriesBySummonersIds(array $summonerIds = [])
+    public function getLeaguePositionsBySummonerId($summonerId)
     {
-        $url = str_replace('{summonerIds}', implode(',', $summonerIds), self::API_URL_LEAGUE_ENTRIES_BY_SUMMONERS_IDS);
+        $url = str_replace('{summonerIds}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
@@ -48,7 +48,9 @@ class LeagueApi extends BaseApi
      */
     public function getChallengerLeagues($gameQueueType)
     {
-        return $this->callApiUrl(self::API_URL_LEAGUE_CHALLENGER, ['type' => $gameQueueType]);
+        $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_CHALLENGER);
+
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
@@ -58,6 +60,8 @@ class LeagueApi extends BaseApi
      */
     public function getMasterLeagues($gameQueueType)
     {
-        return $this->callApiUrl(self::API_URL_LEAGUE_MASTER, ['type' => $gameQueueType]);
+        $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_MASTER);
+
+        return $this->callApiUrl($url, [], true);
     }
 }

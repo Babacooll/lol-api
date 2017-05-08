@@ -260,20 +260,16 @@ class BaseApiTest extends AbstractApiTest
         return [
             [
                 'getLeagueApi',
-                'getLeagueBySummonersIds',
+                'getLeagueBySummonerId',
                 [
-                    [
-                        5
-                    ]
+                    5
                 ]
             ],
             [
                 'getLeagueApi',
-                'getLeagueEntriesBySummonersIds',
+                'getLeaguePositionsBySummonerId',
                 [
-                    [
-                        5
-                    ]
+                    5
                 ]
             ],
             [
@@ -328,15 +324,6 @@ class BaseApiTest extends AbstractApiTest
                     5
                 ]
             ],
-            [
-                'getChampionMasteryApi',
-                'getTopChampionsMasteries',
-                [
-                    'EUW1',
-                    5,
-                    4
-                ]
-            ]
         ];
     }
 }

@@ -12,71 +12,49 @@ use LoLApi\Result\ApiResult;
  */
 class ChampionMasteryApi extends BaseApi
 {
-    const API_URL_CHAMPION_MASTERY_BY_ID = '/championmastery/location/{platformId}/player/{playerId}/champion/{championId}';
-    const API_URL_CHAMPION_MASTERY_ALL = '/championmastery/location/{platformId}/player/{playerId}/champions';
-    const API_URL_CHAMPION_MASTERY_SCORE = '/championmastery/location/{platformId}/player/{playerId}/score';
-    const API_URL_CHAMPION_MASTERY_TOP = '/championmastery/location/{platformId}/player/{playerId}/topchampions';
+    const API_URL_CHAMPION_MASTERY_BY_ID = '/lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}';
+    const API_URL_CHAMPION_MASTERY_BY_CHAMPION_ID = '/lol/champion-mastery/v3/champion-masteries/by-summoner/{summonerId}/by-champion/{championId}';
+    const API_URL_CHAMPION_MASTERY_SCORE = '/lol/champion-mastery/v3/scores/by-summoner/{summonerId}';
 
     /**
-     * @param int $platformId
+     * Get all champion mastery entries sorted by number of champion points descending,
+     *
+     * @param int $summonerId
+     *
+     * @return ApiResult
+     */
+    public function getChampionsMasteries($summonerId)
+    {
+        $url = str_replace('{summonerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_BY_ID);
+
+        return $this->callApiUrl($url, [], true);
+    }
+
+    /**
+     * @param int $summonerId
      * @param int $championId
-     * @param int $playerId
      *
      * @return ApiResult
      */
-    public function getChampionMastery($platformId, $championId, $playerId)
+    public function getChampionMastery($summonerId, $championId)
     {
-        $url = str_replace('{championId}', $championId, self::API_URL_CHAMPION_MASTERY_BY_ID);
-        $url = str_replace('{playerId}', $playerId, $url);
-        $url = str_replace('{platformId}', $platformId, $url);
+        $url = str_replace('{summonerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_BY_CHAMPION_ID);
+        $url = str_replace('{championId}', $championId, $url);
 
-        return $this->callApiUrl($url, []);
+        return $this->callApiUrl($url, [], true);
     }
 
     /**
-     * @param int $platformId
-     * @param int $playerId
+     * Get a player's total champion mastery score, which is the sum of individual champion mastery levels
+     *
+     * @param int $summonerId
      *
      * @return ApiResult
      */
-    public function getChampionsMasteries($platformId, $playerId)
+    public function getChampionsMasteriesScore($summonerId)
     {
-        $url = str_replace('{playerId}', $playerId, self::API_URL_CHAMPION_MASTERY_ALL);
-        $url = str_replace('{platformId}', $platformId, $url);
+        $url = str_replace('{playerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_SCORE);
 
-        return $this->callApiUrl($url, []);
-    }
-
-    /**
-     * @param int $platformId
-     * @param int $playerId
-     *
-     * @return ApiResult
-     */
-    public function getChampionsMasteriesScore($platformId, $playerId)
-    {
-        $url = str_replace('{playerId}', $playerId, self::API_URL_CHAMPION_MASTERY_SCORE);
-        $url = str_replace('{platformId}', $platformId, $url);
-
-        return $this->callApiUrl($url, []);
-    }
-
-    /**
-     * @param int $platformId
-     * @param int $playerId
-     * @param int $limit
-     *
-     * @return ApiResult
-     */
-    public function getTopChampionsMasteries($platformId, $playerId, $limit = 3)
-    {
-        $url = str_replace('{playerId}', $playerId, self::API_URL_CHAMPION_MASTERY_TOP);
-        $url = str_replace('{platformId}', $platformId, $url);
-
-        $queryParameters = [];
-
-        $queryParameters['count'] = (int) $limit;
-
-        return $this->callApiUrl($url, array_filter($queryParameters));
+        return $this->callApiUrl($url, [], true);
     }
 }
