@@ -16,7 +16,7 @@ class StatusApi extends BaseApi
 
     /**
      * Requests to this API are not counted against the application Rate Limits.
-     * 
+     *
      * @return ApiResult
      */
     public function getShards()
