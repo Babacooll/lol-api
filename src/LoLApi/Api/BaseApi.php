@@ -33,12 +33,11 @@ abstract class BaseApi
      * @param array  $queryParameters
      * @param bool   $endpointStandardization (https://discussion.developer.riotgames.com/articles/652/riot-games-api-v3.html)
      * @param bool   $global
-     * @param bool   $status
      *
      * @return ApiResult
      * @throws \LoLApi\Exception\AbstractRateLimitException
      */
-    protected function callApiUrl($url, array $queryParameters = [], $endpointStandardization = false, $global = false, $status = false)
+    protected function callApiUrl($url, array $queryParameters = [], $endpointStandardization = false, $global = false)
     {
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters, $global, $endpointStandardization);
