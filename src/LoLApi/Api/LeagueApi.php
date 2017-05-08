@@ -26,7 +26,7 @@ class LeagueApi extends BaseApi
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_LEAGUE_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -38,7 +38,7 @@ class LeagueApi extends BaseApi
     {
         $url = str_replace('{summonerIds}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -50,7 +50,7 @@ class LeagueApi extends BaseApi
     {
         $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_CHALLENGER);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -62,6 +62,6 @@ class LeagueApi extends BaseApi
     {
         $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_MASTER);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }

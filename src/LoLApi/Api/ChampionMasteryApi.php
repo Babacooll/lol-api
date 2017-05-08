@@ -27,7 +27,7 @@ class ChampionMasteryApi extends BaseApi
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_BY_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -41,7 +41,7 @@ class ChampionMasteryApi extends BaseApi
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_BY_CHAMPION_ID);
         $url = str_replace('{championId}', $championId, $url);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -55,6 +55,6 @@ class ChampionMasteryApi extends BaseApi
     {
         $url = str_replace('{playerId}', $summonerId, self::API_URL_CHAMPION_MASTERY_SCORE);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }

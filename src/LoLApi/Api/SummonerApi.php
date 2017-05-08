@@ -25,7 +25,7 @@ class SummonerApi extends BaseApi
     {
         $url = str_replace('{summonerName}', $summonerName, self::API_URL_SUMMONER_BY_NAME);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -37,7 +37,7 @@ class SummonerApi extends BaseApi
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_SUMMONER_BY_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**
@@ -49,6 +49,6 @@ class SummonerApi extends BaseApi
     {
         $url = str_replace('{accountId}', $accountId, self::API_URL_SUMMONER_BY_ACCOUNT_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }

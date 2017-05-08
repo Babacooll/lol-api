@@ -28,7 +28,7 @@ class MatchApi extends BaseApi
     {
         $url = str_replace('{matchId}', $matchId, self::API_URL_MATCH_BY_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 
     /**

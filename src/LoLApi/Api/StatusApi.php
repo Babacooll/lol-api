@@ -21,6 +21,6 @@ class StatusApi extends BaseApi
      */
     public function getShards()
     {
-        return $this->callApiUrl(self::API_URL_SHARDS, [], true);
+        return $this->callApiUrl(self::API_URL_SHARDS, []);
     }
 }

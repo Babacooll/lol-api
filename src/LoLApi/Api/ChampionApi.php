@@ -23,7 +23,7 @@ class ChampionApi extends BaseApi
     public function getAllChampions($onlyFreeToPlay = false)
     {
         // The json_encode trick is here to change the boolean to a string representation of the boolean
-        return $this->callApiUrl(self::API_URL_CHAMPIONS_ALL, ['freeToPlay' => json_encode($onlyFreeToPlay)], true);
+        return $this->callApiUrl(self::API_URL_CHAMPIONS_ALL, ['freeToPlay' => json_encode($onlyFreeToPlay)]);
     }
 
     /**
@@ -35,6 +35,6 @@ class ChampionApi extends BaseApi
     {
         $url = str_replace('{id}', $championId, self::API_URL_CHAMPION_BY_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }

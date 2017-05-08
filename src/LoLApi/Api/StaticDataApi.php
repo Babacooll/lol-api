@@ -104,7 +104,7 @@ class StaticDataApi extends BaseApi
      */
     public function getLanguages()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGES, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGES, []);
     }
 
     /**
@@ -154,7 +154,7 @@ class StaticDataApi extends BaseApi
      */
     public function getRealms()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_REALM, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_REALM, []);
     }
 
     /**
@@ -221,7 +221,7 @@ class StaticDataApi extends BaseApi
      */
     public function getVersions()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_VERSIONS, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_VERSIONS, []);
     }
 
     /**

@@ -23,6 +23,6 @@ class RuneApi extends BaseApi
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_RUNES_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }

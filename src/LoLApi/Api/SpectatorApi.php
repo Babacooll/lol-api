@@ -20,7 +20,7 @@ class SpectatorApi extends BaseApi
      */
     public function getFeaturedGames()
     {
-        return $this->callApiUrl(self::API_URL_SPECTATOR_FEATURED, [], true);
+        return $this->callApiUrl(self::API_URL_SPECTATOR_FEATURED, []);
     }
 
     /**
@@ -32,6 +32,6 @@ class SpectatorApi extends BaseApi
     {
         $url = str_replace('{summonerId}', $summonerId, self::API_URL_CURRENT_GAME_BY_SUMMONER_ID);
 
-        return $this->callApiUrl($url, [], true);
+        return $this->callApiUrl($url, []);
     }
 }
