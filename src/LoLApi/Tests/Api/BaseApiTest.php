@@ -88,36 +88,6 @@ class BaseApiTest extends AbstractApiTest
                     5
                 ]
             ],
-            [
-                'getStatsApi',
-                'getRankedStatsBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedSummaryBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedStatsBySummonerId',
-                [
-                    5,
-                    'SEASON2015'
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedSummaryBySummonerId',
-                [
-                    5,
-                    'SEASON2015'
-                ]
-            ],
         ];
     }
 

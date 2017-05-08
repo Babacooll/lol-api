@@ -108,7 +108,6 @@ for ($i = 0; $i < 100; $i++) {
 | [Match API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
 | [Champion API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Stats API](https://developer.riotgames.com/api/methods#)     | ![v1.3](https://img.shields.io/badge/v1.3-removed_soon-orange.svg)|  
 | [Team API](https://developer.riotgames.com/api/methods#)      | ![removed](https://img.shields.io/badge/v2.4-removed-red.svg)|  
 | [Game API](https://developer.riotgames.com/api/methods#)      | ![removed](https://img.shields.io/badge/v2.4-removed_soon-orange.svg)|  
 | [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
