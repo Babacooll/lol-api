@@ -12,21 +12,78 @@ use LoLApi\Result\ApiResult;
  */
 class MatchApi extends BaseApi
 {
-    const API_URL_MATCH_BY_ID = '/api/lol/{region}/v2.2/match/{matchId}';
+    const API_URL_MATCH_BY_ID = '/lol/match/v3/matches/{matchId}';
+    const API_URL_MATCH_LIST_BY_ACCOUNT = '/lol/match/v3/matchlists/by-account/{accountId}';
+    const API_URL_RECENT_MATCH_LIST_BY_ACCOUNT = '/lol/match/v3/matchlists/by-account/{accountId}/recent';
+    const API_URL_TIMELINES_BY_MATCH_ID = '/lol/match/v3/timelines/by-match/{matchId}';
+    const API_URL_MATCH_ID_BY_TOURNAMENT_CODE = '/lol/match/v3/matches/by-tournament-code/{tournamentCode}/ids';
+    const API_URL_MATCH_BY_MATCH_ID_AND_TOURNAMENT_CODE = '/lol/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode}';
 
     /**
-     * @param int        $matchId
-     * @param bool|false $includeTimeline
+     * @param int $matchId
      *
      * @return ApiResult
      */
-    public function getMatchByMatchId($matchId, $includeTimeline = false)
+    public function getMatchByMatchId($matchId)
     {
-        $url             = str_replace('{matchId}', $matchId, self::API_URL_MATCH_BY_ID);
-        $queryParameters = [];
+        $url = str_replace('{matchId}', $matchId, self::API_URL_MATCH_BY_ID);
 
-        $queryParameters['includeTimeline'] = (int) $includeTimeline;
+        return $this->callApiUrl($url, [], true);
+    }
 
-        return $this->callApiUrl($url, array_filter($queryParameters));
+    /**
+     * Get matchlist for ranked games played on given account ID
+     * and platform ID and filtered using given filter parameters, if any.
+     *
+     * @throws \Exception
+     */
+    public function getMatchlistByAccountId()
+    {
+        throw new \Exception("Method not implemented yet");
+    }
+
+    /**
+     * Get matchlist for last 20 matches played on given account ID and platform ID.
+     *
+     * @throws \Exception
+     */
+    public function getLastMatchlistByAccountId()
+    {
+        throw new \Exception("Method not implemented yet");
+    }
+
+    /**
+     * Get match timeline by match ID.
+     *
+     * @throws \Exception
+     */
+    public function getTimelineByMatchId()
+    {
+        throw new \Exception("Method not implemented yet");
+    }
+
+    /**
+     * Get match IDs by tournament code.
+     *
+     * @param string $tournamentCode
+     *
+     * @throws \Exception
+     */
+    public function getMatchIdByTournamentCode($tournamentCode)
+    {
+        throw new \Exception("Method not implemented yet");
+    }
+
+    /**
+     * Get match by match ID and tournament code.
+     *
+     * @param int    $matchId
+     * @param string $tournamentCode
+     *
+     * @throws \Exception
+     */
+    public function getMatchByMatchIdAndTournamentCode($matchId, $tournamentCode)
+    {
+        throw new \Exception("Method not implemented yet");
     }
 }

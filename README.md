@@ -105,12 +105,12 @@ for ($i = 0; $i < 100; $i++) {
 | ------------- |-------------| 
 | [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [MatchList API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
-| [Match API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
+| [Match API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
 | [Champion API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
 | [Stats API](https://developer.riotgames.com/api/methods#)     | ![v1.3](https://img.shields.io/badge/v1.3-removed_soon-orange.svg)|  
 | [Team API](https://developer.riotgames.com/api/methods#)      | ![removed](https://img.shields.io/badge/v2.4-removed-red.svg)|  
-| [Game API](https://developer.riotgames.com/api/methods#)      | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
+| [Game API](https://developer.riotgames.com/api/methods#)      | ![removed](https://img.shields.io/badge/v2.4-removed_soon-orange.svg)|  
 | [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
 | [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 | [League API](https://developer.riotgames.com/api/methods#)      | ![v2.5](https://img.shields.io/badge/v2.5-latest-green.svg)|  

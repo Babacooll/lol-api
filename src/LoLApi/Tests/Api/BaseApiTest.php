@@ -26,7 +26,6 @@ class BaseApiTest extends AbstractApiTest
      * @covers       LoLApi\Api\MatchListApi
      * @covers       LoLApi\Api\SummonerApi
      * @covers       LoLApi\Api\TeamApi
-     * @covers       LoLApi\Api\GameApi
      * @covers       LoLApi\Api\CurrentGameApi
      * @covers       LoLApi\Api\StatsApi
      * @covers       LoLApi\Api\StaticDataApi
@@ -86,13 +85,6 @@ class BaseApiTest extends AbstractApiTest
                 'getCurrentGameByPlatformIdAndSummonerId',
                 [
                     'EUW1',
-                    5
-                ]
-            ],
-            [
-                'getGameApi',
-                'getRecentGamesBySummonerId',
-                [
                     5
                 ]
             ],
