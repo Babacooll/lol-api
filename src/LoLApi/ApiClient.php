@@ -260,6 +260,6 @@ class ApiClient
      */
     public function cacheApiResult(ApiResult $apiResult, $ttl = 60)
     {
-        $this->cacheProvider->save($apiResult->getUrl(), json_encode($apiResult->getResult()), $ttl);
+        $this->cacheProvider->save(md5($apiResult->getUrl()), json_encode($apiResult->getResult()), $ttl);
     }
 }
