@@ -40,8 +40,11 @@ abstract class BaseApi
         $queryParameters = array_merge(['api_key' => $this->apiClient->getApiKey()], $queryParameters);
         $fullUrl         = $this->buildUri($url, $queryParameters);
 
-        if ($this->apiClient->getCacheProvider()->contains(md5($fullUrl))) {
-            return $this->buildApiResult($fullUrl, json_decode($this->apiClient->getCacheProvider()->fetch(md5($fullUrl)), true), true);
+        $cacheKey = md5($fullUrl);
+        $item     = $this->apiClient->getCacheProvider()->getItem($cacheKey);
+
+        if ($item->isHit()) {
+            return $this->buildApiResult($fullUrl, json_decode($item->get(), true), true);
         }
 
         try {

@@ -2,8 +2,6 @@
 
 namespace LoLApi;
 
-use Doctrine\Common\Cache\CacheProvider;
-use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
 use LoLApi\Api\ChampionMasteryApi;
@@ -17,6 +15,9 @@ use LoLApi\Api\StatusApi;
 use LoLApi\Api\SummonerApi;
 use LoLApi\Exception\InvalidRegionException;
 use LoLApi\Result\ApiResult;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * Class ApiClient
@@ -94,44 +95,44 @@ class ApiClient
     protected $httpClient;
 
     /**
-     * @var CacheProvider
+     * @var AdapterInterface
      */
     protected $cacheProvider;
 
     /**
-     * @param string        $region
-     * @param string        $apiKey
-     * @param CacheProvider $cacheProvider
-     * @param Client        $client
+     * @param string          $region
+     * @param string          $apiKey
+     * @param AdapterInterface $cache
+     * @param Client          $client
      *
      * @throws InvalidRegionException
      */
-    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
+    public function __construct($region, $apiKey, AdapterInterface $cache = null, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new InvalidRegionException(sprintf('Invalid region %s', $region));
         }
 
-        $this->region                  = $region;
-        $this->httpClient              = $client ? $client : new Client();
-        $this->apiKey                  = $apiKey;
-        $this->cacheProvider           = $cacheProvider ? $cacheProvider : new VoidCache();
+        $this->region     = $region;
+        $this->httpClient = $client ? $client : new Client();
+        $this->apiKey     = $apiKey;
+        $this->cache      = $cache ? $cache : new NullAdapter();
     }
 
     /**
-     * @param CacheProvider $cacheProvider
+     * @param AdapterInterface $cache
      */
-    public function setCacheProvider(CacheProvider $cacheProvider)
+    public function setCacheProvider(AdapterInterface $cache)
     {
-        $this->cacheProvider = $cacheProvider;
+        $this->cache = $cache;
     }
 
     /**
-     * @return CacheProvider
+     * @return AdapterInterface
      */
     public function getCacheProvider()
     {
-        return $this->cacheProvider;
+        return $this->cache;
     }
 
     /**
@@ -260,6 +261,14 @@ class ApiClient
      */
     public function cacheApiResult(ApiResult $apiResult, $ttl = 60)
     {
-        $this->cacheProvider->save(md5($apiResult->getUrl()), json_encode($apiResult->getResult()), $ttl);
+        $cacheKey = md5($apiResult->getUrl());
+
+        $item = $this->cache->getItem($cacheKey);
+
+        if (!$item->isHit()) {
+           $item->set(json_encode($apiResult->getResult()));
+           $item->expiresAfter($ttl);
+           $this->cache->save($item);
+        }
     }
 }

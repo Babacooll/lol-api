@@ -56,18 +56,22 @@ $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2
 
 #### Use cache
 
-By default Doctrine's VoidCache provider is implemented. You can specify another Cache provider (implementing doctrine CacheProvider abstract class) to the ApiClient.
+By default Symfony NullAdapter cache is used. You can specify another Cache Adapter (implementing PSR6 Adapters) to the ApiClient.
 
 Example with Predis :
 
 ```php
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+
 $client = new \Predis\Client([
     'scheme' => 'tcp',
     'host'   => '127.0.0.1',
     'port'   => 6379,
 ]);
 
-$apiClient->setCacheProvider(new \Doctrine\Common\Cache\PredisCache($client));
+$redisAdapter = new RedisAdapter($client);
+
+$apiClient->setCacheProvider($redisAdapter);
 
 // This will call the API and return to you an ApiResult object
 $result = $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');

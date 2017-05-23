@@ -2,11 +2,11 @@
 
 namespace LoLApi\Tests;
 
-use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\ApiClient;
 use LoLApi\Result\ApiResult;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * Class ApiClientTest
@@ -68,11 +68,11 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
 
-        $this->assertInstanceOf('Doctrine\Common\Cache\VoidCache', $apiClient->getCacheProvider());
+        $apiClient->setCacheProvider(new NullAdapter());
+        $this->assertInstanceOf(NullAdapter::class, $apiClient->getCacheProvider());
 
-        $apiClient->setCacheProvider(new ArrayCache());
-
-        $this->assertInstanceOf('Doctrine\Common\Cache\ArrayCache', $apiClient->getCacheProvider());
+        $apiClient->setCacheProvider(new ArrayAdapter());
+        $this->assertInstanceOf(ArrayAdapter::class, $apiClient->getCacheProvider());
     }
 
     /**
@@ -81,8 +81,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testCacheApiResult()
     {
         $apiResult  = new ApiResult();
-        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
-        $arrayCache->expects($this->once())->method('save')->willReturn($this->equalTo($apiResult));
+        $arrayCache = new ArrayAdapter();
 
         $client = new ApiClient(ApiClient::REGION_EUW, 'test', $arrayCache);
 
@@ -118,7 +117,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithClient()
     {
         $httpClient = new Client();
-        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache(), $httpClient);
+        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', new NullAdapter(), $httpClient);
 
         $this->assertSame($httpClient, $apiClient->getHttpClient());
     }
@@ -128,7 +127,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache());
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', new NullAdapter());
 
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
     }

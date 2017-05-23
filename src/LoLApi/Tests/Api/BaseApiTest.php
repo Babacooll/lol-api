@@ -2,8 +2,8 @@
 
 namespace LoLApi\Tests\Api;
 
-use Doctrine\Common\Cache\VoidCache;
 use LoLApi\Tests\AbstractApiTest;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
  * Class BaseApiTest
@@ -45,9 +45,15 @@ class BaseApiTest extends AbstractApiTest
      */
     public function testWithCachedResult()
     {
-        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
-        $arrayCache->expects($this->once())->method('contains')->willReturn(true);
-        $arrayCache->expects($this->once())->method('fetch')->willReturn('{}');
+        $arrayCache = new ArrayAdapter();
+
+        $item = $arrayCache->getItem('foo');
+        $item->set('{}');
+        $arrayCache->save($item);
+
+        $fooItem = $arrayCache->getItem('foo');
+        $this->assertTrue($fooItem->isHit());
+        $this->assertEquals('{}', $fooItem->get());
 
         $apiClient = $this->getApiClient($arrayCache, $this->getSuccessfulHttpClient());
 
@@ -61,7 +67,7 @@ class BaseApiTest extends AbstractApiTest
      */
     public function testWithRateLimitException()
     {
-        $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
+        $apiClient = $this->getApiClient(new ArrayAdapter(), $this->getRateLimitHttpClient());
 
         $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId(5);
     }
