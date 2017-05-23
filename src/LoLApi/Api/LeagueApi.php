@@ -36,7 +36,7 @@ class LeagueApi extends BaseApi
      */
     public function getLeaguePositionsBySummonerId($summonerId)
     {
-        $url = str_replace('{summonerIds}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
+        $url = str_replace('{summonerId}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
 
         return $this->callApiUrl($url, []);
     }
