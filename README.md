@@ -40,45 +40,47 @@ To get the result you can call the method **getResult()** on the ApiResult objec
 ```php
 $apiClient = new \LoLApi\ApiClient(\LoLApi\ApiClient::REGION_EUW, 'my-key');
 
-$apiClient->getMatchListApi()->getMatchListBySummonerId(2);
+$apiClient->getMatchApi()->getMatchListBySummonerId(2);
 $apiClient->getMatchApi()->getMatchByMatchId(2, true);
-$apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
-$apiClient->getSummonerApi()->getSummonersBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersMasteriesBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersNamesBySummonerIds([2]);
-$apiClient->getSummonerApi()->getSummonersRunesBySummonerIds([2]);
+$apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
+$apiClient->getSummonerApi()->getSummonerBySummonerId(2);
+$apiClient->getMasteriesApi()->getMasteriesBySummonerId(2);
+$apiClient->getRunesApi()->getRunesBySummonerId(2);
+$apiClient->getSummonerApi()->getSummonerNameBySummonerId(2);
 $apiClient->getChampionApi()->getChampionById(20);
 $apiClient->getFeaturedGamesApi()->getFeaturedGames();
 $apiClient->getStatsApi()->getRankedStatsBySummonerId(2);
-$apiClient->getTeamApi()->getTeamsBySummonersIds([2]);
-$apiClient->getTeamApi()->getTeamsByTeamsIds(['T1']);
 $apiClient->getGameApi()->getRecentGamesBySummonerId(2);
-$apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2);
+$apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 2);
 ```
 
 #### Use cache
 
-By default Doctrine's VoidCache provider is implemented. You can specify another Cache provider (implementing doctrine CacheProvider abstract class) to the ApiClient.
+By default Symfony NullAdapter cache is used. You can specify another Cache Adapter (implementing PSR6 Adapters) to the ApiClient.
 
 Example with Predis :
 
 ```php
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+
 $client = new \Predis\Client([
     'scheme' => 'tcp',
     'host'   => '127.0.0.1',
     'port'   => 6379,
 ]);
 
-$apiClient->setCacheProvider(new \Doctrine\Common\Cache\PredisCache($client));
+$redisAdapter = new RedisAdapter($client);
+
+$apiClient->setCacheProvider($redisAdapter);
 
 // This will call the API and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
+$result = $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
 
 // Let's cache this result for 60 seconds into Redis
 $apiClient->cacheApiResult($result, 60);
 
 // This will fetch the data from Redis and return to you an ApiResult object
-$result = $apiClient->getSummonerApi()->getSummonersBySummonerNames(['MySummonerName']);
+$result = $apiClient->getSummonerApi()->getSummonerBySummonerName('MySummonerName');
 ```
 
 The default ttl value **cacheApiResult()** method is 60 seconds.
@@ -94,7 +96,7 @@ $apiClient = new \LoLApi\ApiClient(\LoLApi\ApiClient::REGION_EUW, 'my-key');
 
 for ($i = 0; $i < 100; $i++) {
     try {
-        $apiClient->getMatchListApi()->getMatchListBySummonerId(2);
+        $apiClient->getMatchApi()->getMatchListByAccountId(2);
     } catch (AbstractRateLimitException $e) {
         sleep($e->getRetryAfter());
     }
@@ -105,19 +107,16 @@ for ($i = 0; $i < 100; $i++) {
 
 | API        | Version           |
 | ------------- |-------------| 
-| [Summoner API](https://developer.riotgames.com/api/methods#)      | ![v1.4](https://img.shields.io/badge/v1.4-latest-green.svg)|  
-| [MatchList API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
-| [Match API](https://developer.riotgames.com/api/methods#)      | ![v2.2](https://img.shields.io/badge/v2.2-latest-green.svg)|  
-| [Champion API](https://developer.riotgames.com/api/methods#)      | ![v1.2](https://img.shields.io/badge/v1.2-latest-green.svg)|  
-| [Featured games API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Stats API](https://developer.riotgames.com/api/methods#)     | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
-| [Team API](https://developer.riotgames.com/api/methods#)      | ![v2.4](https://img.shields.io/badge/v2.4-latest-green.svg)|  
-| [Game API](https://developer.riotgames.com/api/methods#)      | ![v1.3](https://img.shields.io/badge/v1.3-latest-green.svg)|  
-| [Current game API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Static Data API](https://developer.riotgames.com/api/methods#)      | ![v1.2](https://img.shields.io/badge/v1.2-latest-green.svg)|  
-| [League API](https://developer.riotgames.com/api/methods#)      | ![v2.5](https://img.shields.io/badge/v2.5-latest-green.svg)|  
-| [Status API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v1.0-latest-green.svg)|  
-| [Champion Mastery API](https://developer.riotgames.com/api/methods#)      | ![v*.*](https://img.shields.io/badge/v*.*-latest-green.svg)|  
+| [Summoner API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Match API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-missing_methods-orange.svg)|  
+| [Champion API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Spetactor API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Static Data API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [League API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Status API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Champion Mastery API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Masteries API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
+| [Runes API](https://developer.riotgames.com/api-methods/)      | ![v3](https://img.shields.io/badge/v3-latest-green.svg)|  
 
 ### Contributing
 

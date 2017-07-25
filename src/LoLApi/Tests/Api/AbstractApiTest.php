@@ -2,14 +2,14 @@
 
 namespace LoLApi\Tests;
 
-use Doctrine\Common\Cache\CacheProvider;
-use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use LoLApi\ApiClient;
 use LoLApi\Handler\ClientExceptionHandler;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
  * Class AbstractApiTest
@@ -31,18 +31,18 @@ abstract class AbstractApiTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->apiClient = $this->getApiClient(new VoidCache(), $this->getSuccessfulHttpClient());
+        $this->apiClient = $this->getApiClient(new ArrayAdapter(), $this->getSuccessfulHttpClient());
     }
 
     /**
-     * @param CacheProvider $cacheProvider
-     * @param Client        $httpClient
+     * @param AdapterInterface $cache
+     * @param Client           $httpClient
      *
      * @return ApiClient
      */
-    protected function getApiClient(CacheProvider $cacheProvider, Client $httpClient)
+    protected function getApiClient(AdapterInterface $cache, Client $httpClient)
     {
-        return new ApiClient(self::REGION, self::API_KEY, $cacheProvider, $httpClient);
+        return new ApiClient(self::REGION, self::API_KEY, $cache, $httpClient);
     }
 
     /**

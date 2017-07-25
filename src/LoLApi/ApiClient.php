@@ -2,24 +2,22 @@
 
 namespace LoLApi;
 
-use Doctrine\Common\Cache\CacheProvider;
-use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\Api\ChampionApi;
 use LoLApi\Api\ChampionMasteryApi;
-use LoLApi\Api\CurrentGameApi;
-use LoLApi\Api\FeaturedGamesApi;
-use LoLApi\Api\GameApi;
+use LoLApi\Api\SpectatorApi;
 use LoLApi\Api\LeagueApi;
+use LoLApi\Api\MasteryApi;
 use LoLApi\Api\MatchApi;
-use LoLApi\Api\MatchListApi;
+use LoLApi\Api\RuneApi;
 use LoLApi\Api\StaticDataApi;
-use LoLApi\Api\StatsApi;
 use LoLApi\Api\StatusApi;
 use LoLApi\Api\SummonerApi;
-use LoLApi\Api\TeamApi;
 use LoLApi\Exception\InvalidRegionException;
 use LoLApi\Result\ApiResult;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * Class ApiClient
@@ -28,16 +26,29 @@ use LoLApi\Result\ApiResult;
  */
 class ApiClient
 {
-    const REGION_BR = 'br';
+    const REGION_BR   = 'br';
     const REGION_EUNE = 'eune';
-    const REGION_EUW = 'euw';
-    const REGION_KR = 'kr';
-    const REGION_LAN = 'lan';
-    const REGION_LAS = 'las';
-    const REGION_NA = 'na';
-    const REGION_OCE = 'oce';
-    const REGION_RU = 'ru';
-    const REGION_TR = 'tr';
+    const REGION_EUW  = 'euw';
+    const REGION_JP   = 'jp';
+    const REGION_KR   = 'kr';
+    const REGION_LAN  = 'lan';
+    const REGION_LAS  = 'las';
+    const REGION_NA   = 'na';
+    const REGION_OCE  = 'oce';
+    const REGION_TR   = 'tr';
+    const REGION_RU   = 'ru';
+
+    const REGION_BR_ID   = 'br1';
+    const REGION_EUNE_ID = 'eun1';
+    const REGION_EUW_ID  = 'euw1';
+    const REGION_JP_ID   = 'jp1';
+    const REGION_KR_ID   = 'kr';
+    const REGION_LAN_ID  = 'la1';
+    const REGION_LAS_ID  = 'la2';
+    const REGION_NA_ID   = 'na1';
+    const REGION_OCE_ID  = 'oc1';
+    const REGION_TR_ID   = 'tr1';
+    const REGION_RU_ID   = 'ru';
 
     /**
      * @var array
@@ -52,7 +63,20 @@ class ApiClient
         self::REGION_NA,
         self::REGION_OCE,
         self::REGION_RU,
-        self::REGION_TR
+        self::REGION_TR,
+    ];
+
+    public static $regionsWithIds = [
+        self::REGION_BR   => self::REGION_BR_ID,
+        self::REGION_EUNE => self::REGION_EUNE_ID,
+        self::REGION_EUW  => self::REGION_EUW_ID,
+        self::REGION_KR   => self::REGION_KR_ID,
+        self::REGION_LAN  => self::REGION_LAN_ID,
+        self::REGION_LAS  => self::REGION_LAS_ID,
+        self::REGION_NA   => self::REGION_NA_ID,
+        self::REGION_OCE  => self::REGION_OCE_ID,
+        self::REGION_RU   => self::REGION_RU_ID,
+        self::REGION_TR   => self::REGION_TR_ID,
     ];
 
     /**
@@ -71,44 +95,44 @@ class ApiClient
     protected $httpClient;
 
     /**
-     * @var CacheProvider
+     * @var AdapterInterface
      */
     protected $cacheProvider;
 
     /**
-     * @param string        $region
-     * @param string        $apiKey
-     * @param CacheProvider $cacheProvider
-     * @param Client        $client
+     * @param string          $region
+     * @param string          $apiKey
+     * @param AdapterInterface $cache
+     * @param Client          $client
      *
      * @throws InvalidRegionException
      */
-    public function __construct($region, $apiKey, CacheProvider $cacheProvider = null, Client $client = null)
+    public function __construct($region, $apiKey, AdapterInterface $cache = null, Client $client = null)
     {
         if (!in_array($region, self::$availableRegions)) {
             throw new InvalidRegionException(sprintf('Invalid region %s', $region));
         }
 
-        $this->region        = $region;
-        $this->httpClient    = $client ? $client : new Client(['base_uri' => $this->getBaseUrlWithRegion()]);
-        $this->apiKey        = $apiKey;
-        $this->cacheProvider = $cacheProvider ? $cacheProvider : new VoidCache();
+        $this->region     = $region;
+        $this->httpClient = $client ? $client : new Client();
+        $this->apiKey     = $apiKey;
+        $this->cache      = $cache ? $cache : new NullAdapter();
     }
 
     /**
-     * @param CacheProvider $cacheProvider
+     * @param AdapterInterface $cache
      */
-    public function setCacheProvider(CacheProvider $cacheProvider)
+    public function setCacheProvider(AdapterInterface $cache)
     {
-        $this->cacheProvider = $cacheProvider;
+        $this->cache = $cache;
     }
 
     /**
-     * @return CacheProvider
+     * @return AdapterInterface
      */
     public function getCacheProvider()
     {
-        return $this->cacheProvider;
+        return $this->cache;
     }
 
     /**
@@ -136,14 +160,6 @@ class ApiClient
     }
 
     /**
-     * @return MatchListApi
-     */
-    public function getMatchListApi()
-    {
-        return new MatchListApi($this);
-    }
-
-    /**
      * @return MatchApi
      */
     public function getMatchApi()
@@ -168,43 +184,35 @@ class ApiClient
     }
 
     /**
-     * @return FeaturedGamesApi
+     * @return SpectatorApi
      */
     public function getFeaturedGamesApi()
     {
-        return new FeaturedGamesApi($this);
+        return new SpectatorApi($this);
     }
 
     /**
-     * @return StatsApi
+     * @return MasteryApi
      */
-    public function getStatsApi()
+    public function getMasteriesApi()
     {
-        return new StatsApi($this);
+        return new MasteryApi($this);
     }
 
     /**
-     * @return TeamApi
+     * @return RuneApi
      */
-    public function getTeamApi()
+    public function getRunesApi()
     {
-        return new TeamApi($this);
+        return new RuneApi($this);
     }
 
     /**
-     * @return GameApi
+     * @return SpectatorApi
      */
-    public function getGameApi()
+    public function getSpectatorApi()
     {
-        return new GameApi($this);
-    }
-
-    /**
-     * @return CurrentGameApi
-     */
-    public function getCurrentGameApi()
-    {
-        return new CurrentGameApi($this);
+        return new SpectatorApi($this);
     }
 
     /**
@@ -242,25 +250,9 @@ class ApiClient
     /**
      * @return string
      */
-    public function getBaseUrlWithRegion()
+    public function getBaseUrl()
     {
-        return 'https://' . $this->region . '.api.pvp.net';
-    }
-
-    /**
-     * @return string
-     */
-    public function getGlobalUrl()
-    {
-        return 'https://global.api.pvp.net';
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusUrl()
-    {
-        return 'http://status.leagueoflegends.com';
+        return 'https://'.self::$regionsWithIds[$this->region].'.api.riotgames.com';
     }
 
     /**
@@ -269,6 +261,14 @@ class ApiClient
      */
     public function cacheApiResult(ApiResult $apiResult, $ttl = 60)
     {
-        $this->cacheProvider->save($apiResult->getUrl(), json_encode($apiResult->getResult()), $ttl);
+        $cacheKey = md5($apiResult->getUrl());
+
+        $item = $this->cache->getItem($cacheKey);
+
+        if (!$item->isHit()) {
+           $item->set(json_encode($apiResult->getResult()));
+           $item->expiresAfter($ttl);
+           $this->cache->save($item);
+        }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace LoLApi\Tests;
 
-use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\Common\Cache\VoidCache;
 use GuzzleHttp\Client;
 use LoLApi\ApiClient;
 use LoLApi\Result\ApiResult;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\Adapter\NullAdapter;
 
 /**
  * Class ApiClientTest
@@ -19,15 +19,11 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     const API_KEY = 'test';
 
     /**
-     * @covers LoLApi\ApiClient::getMatchListApi
      * @covers LoLApi\ApiClient::getMatchApi
      * @covers LoLApi\ApiClient::getSummonerApi
      * @covers LoLApi\ApiClient::getChampionApi
      * @covers LoLApi\ApiClient::getFeaturedGamesApi
-     * @covers LoLApi\ApiClient::getGameApi
-     * @covers LoLApi\ApiClient::getStatsApi
-     * @covers LoLApi\ApiClient::getCurrentGameApi
-     * @covers LoLApi\ApiClient::getTeamApi
+     * @covers LoLApi\ApiClient::getSpectatorApi
      * @covers LoLApi\ApiClient::getStaticDataApi
      * @covers LoLApi\ApiClient::getLeagueApi
      * @covers LoLApi\ApiClient::getStatusApi
@@ -37,15 +33,12 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
 
-        $this->assertInstanceOf('LoLApi\Api\MatchListApi', $apiClient->getMatchListApi());
         $this->assertInstanceOf('LoLApi\Api\MatchApi', $apiClient->getMatchApi());
         $this->assertInstanceOf('LoLApi\Api\SummonerApi', $apiClient->getSummonerApi());
         $this->assertInstanceOf('LoLApi\Api\ChampionApi', $apiClient->getChampionApi());
-        $this->assertInstanceOf('LoLApi\Api\FeaturedGamesApi', $apiClient->getFeaturedGamesApi());
-        $this->assertInstanceOf('LoLApi\Api\GameApi', $apiClient->getGameApi());
-        $this->assertInstanceOf('LoLApi\Api\StatsApi', $apiClient->getStatsApi());
-        $this->assertInstanceOf('LoLApi\Api\CurrentGameApi', $apiClient->getCurrentGameApi());
-        $this->assertInstanceOf('LoLApi\Api\TeamApi', $apiClient->getTeamApi());
+        $this->assertInstanceOf('LoLApi\Api\SpectatorApi', $apiClient->getSpectatorApi());
+        $this->assertInstanceOf('LoLApi\Api\MasteryApi', $apiClient->getMasteriesApi());
+        $this->assertInstanceOf('LoLApi\Api\RuneApi', $apiClient->getRunesApi());
         $this->assertInstanceOf('LoLApi\Api\StaticDataApi', $apiClient->getStaticDataApi());
         $this->assertInstanceOf('LoLApi\Api\LeagueApi', $apiClient->getLeagueApi());
         $this->assertInstanceOf('LoLApi\Api\StatusApi', $apiClient->getStatusApi());
@@ -57,7 +50,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      * @covers LoLApi\ApiClient::getApiKey
      * @covers LoLApi\ApiClient::getHttpClient
      * @covers LoLApi\ApiClient::getGlobalUrl
-     * @covers LoLApi\ApiClient::getStatusUrl
      */
     public function testOtherGetters()
     {
@@ -66,8 +58,6 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::REGION, $apiClient->getRegion());
         $this->assertEquals(self::API_KEY, $apiClient->getApiKey());
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
-        $this->assertSame('https://global.api.pvp.net', $apiClient->getGlobalUrl());
-        $this->assertSame('http://status.leagueoflegends.com', $apiClient->getStatusUrl());
     }
 
     /**
@@ -78,11 +68,11 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     {
         $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
 
-        $this->assertInstanceOf('Doctrine\Common\Cache\VoidCache', $apiClient->getCacheProvider());
+        $apiClient->setCacheProvider(new NullAdapter());
+        $this->assertInstanceOf(NullAdapter::class, $apiClient->getCacheProvider());
 
-        $apiClient->setCacheProvider(new ArrayCache());
-
-        $this->assertInstanceOf('Doctrine\Common\Cache\ArrayCache', $apiClient->getCacheProvider());
+        $apiClient->setCacheProvider(new ArrayAdapter());
+        $this->assertInstanceOf(ArrayAdapter::class, $apiClient->getCacheProvider());
     }
 
     /**
@@ -91,8 +81,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testCacheApiResult()
     {
         $apiResult  = new ApiResult();
-        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
-        $arrayCache->expects($this->once())->method('save')->willReturn($this->equalTo($apiResult));
+        $arrayCache = new ArrayAdapter();
 
         $client = new ApiClient(ApiClient::REGION_EUW, 'test', $arrayCache);
 
@@ -100,16 +89,16 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LoLApi\ApiClient::getBaseUrlWithRegion
+     * @covers LoLApi\ApiClient::getBaseUrlWithPlatformId
      */
-    public function testGetBaseUrlWithRegion()
+    public function testGetBaseUrlWithPlatformId()
     {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test');
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', null, null);
         $class     = new \ReflectionClass('LoLApi\ApiClient');
-        $method    = $class->getMethod('getBaseUrlWithRegion');
+        $method    = $class->getMethod('getBaseUrl');
         $method->setAccessible(true);
 
-        $this->assertEquals('https://euw.api.pvp.net', $method->invoke($apiClient));
+        $this->assertEquals('https://euw1.api.riotgames.com', $method->invoke($apiClient, true));
     }
 
     /**
@@ -128,7 +117,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithClient()
     {
         $httpClient = new Client();
-        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache(), $httpClient);
+        $apiClient  = new ApiClient(ApiClient::REGION_EUW, 'test', new NullAdapter(), $httpClient);
 
         $this->assertSame($httpClient, $apiClient->getHttpClient());
     }
@@ -138,7 +127,7 @@ class ApiClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', new VoidCache());
+        $apiClient = new ApiClient(ApiClient::REGION_EUW, 'test', new NullAdapter());
 
         $this->assertInstanceOf('GuzzleHttp\Client', $apiClient->getHttpClient());
     }

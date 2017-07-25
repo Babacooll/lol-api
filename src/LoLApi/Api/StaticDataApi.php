@@ -8,25 +8,25 @@ use LoLApi\Result\ApiResult;
  * Class StaticDataApi
  *
  * @package LoLApi\Api
- * @see     https://developer.riotgames.com/api/methods
+ * @see     https://developer.riotgames.com/api-methods/
  */
 class StaticDataApi extends BaseApi
 {
-    const API_URL_STATIC_DATA_CHAMPIONS = '/api/lol/static-data/{region}/v1.2/champion';
-    const API_URL_STATIC_DATA_CHAMPION_BY_ID = '/api/lol/static-data/{region}/v1.2/champion/{championId}';
-    const API_URL_STATIC_DATA_ITEMS = '/api/lol/static-data/{region}/v1.2/item';
-    const API_URL_STATIC_DATA_ITEM_BY_ID = '/api/lol/static-data/{region}/v1.2/item/{itemId}';
-    const API_URL_STATIC_DATA_LANGUAGE_STRINGS = '/api/lol/static-data/{region}/v1.2/language-strings';
-    const API_URL_STATIC_DATA_LANGUAGES = '/api/lol/static-data/{region}/v1.2/language';
-    const API_URL_STATIC_DATA_MAP = '/api/lol/static-data/{region}/v1.2/map';
-    const API_URL_STATIC_DATA_MASTERIES = '/api/lol/static-data/{region}/v1.2/mastery';
-    const API_URL_STATIC_DATA_MASTERY_BY_ID = '/api/lol/static-data/{region}/v1.2/mastery/{masteryId}';
-    const API_URL_STATIC_DATA_REALM = '/api/lol/static-data/{region}/v1.2/realm';
-    const API_URL_STATIC_DATA_RUNES = '/api/lol/static-data/{region}/v1.2/rune';
-    const API_URL_STATIC_DATA_RUNE_BY_ID = '/api/lol/static-data/{region}/v1.2/rune/{runeId}';
-    const API_URL_STATIC_DATA_SUMMONER_SPELLS = '/api/lol/static-data/{region}/v1.2/summoner-spell';
-    const API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID = '/api/lol/static-data/{region}/v1.2/summoner-spell/{summonerSpellId}';
-    const API_URL_STATIC_DATA_VERSIONS = '/api/lol/static-data/{region}/v1.2/versions';
+    const API_URL_STATIC_DATA_CHAMPIONS = '/lol/static-data/v3/champions';
+    const API_URL_STATIC_DATA_CHAMPION_BY_ID = '/lol/static-data/v3/champions/{id}';
+    const API_URL_STATIC_DATA_ITEMS = '/lol/static-data/v3/items';
+    const API_URL_STATIC_DATA_ITEM_BY_ID = '/lol/static-data/v3/items/{id}';
+    const API_URL_STATIC_DATA_LANGUAGE_STRINGS = '/lol/static-data/v3/language-strings';
+    const API_URL_STATIC_DATA_LANGUAGES = '/lol/static-data/v3/languages';
+    const API_URL_STATIC_DATA_MAP = '/lol/static-data/v3/maps';
+    const API_URL_STATIC_DATA_MASTERIES = '/lol/static-data/v3/masteries';
+    const API_URL_STATIC_DATA_MASTERY_BY_ID = '/lol/static-data/v3/masteries/{id}';
+    const API_URL_STATIC_DATA_REALM = '/lol/static-data/v3/realms';
+    const API_URL_STATIC_DATA_RUNES = '/lol/static-data/v3/runes';
+    const API_URL_STATIC_DATA_RUNE_BY_ID = '/lol/static-data/v3/runes/{id}';
+    const API_URL_STATIC_DATA_SUMMONER_SPELLS = '/lol/static-data/v3/summoner-spells';
+    const API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID = '/lol/static-data/v3/summoner-spells/{id}';
+    const API_URL_STATIC_DATA_VERSIONS = '/lol/static-data/v3/versions';
 
     /**
      * @param string $locale
@@ -40,7 +40,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['dataById' => (string) $dataById, 'champData' => implode(',', $champData)]);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_CHAMPIONS, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_CHAMPIONS, array_filter($queryParameters));
     }
 
     /**
@@ -55,7 +55,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['champData' => implode(',', $champData)]);
 
-        return $this->callApiUrl(str_replace('{championId}', $championId, self::API_URL_STATIC_DATA_CHAMPION_BY_ID), array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{id}', $championId, self::API_URL_STATIC_DATA_CHAMPION_BY_ID), array_filter($queryParameters));
     }
 
     /**
@@ -68,7 +68,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_ITEMS, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_ITEMS, array_filter($queryParameters));
     }
 
     /**
@@ -83,7 +83,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['itemData' => implode(',', $itemData)]);
 
-        return $this->callApiUrl(str_replace('{itemId}', $itemId, self::API_URL_STATIC_DATA_ITEM_BY_ID), array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{id}', $itemId, self::API_URL_STATIC_DATA_ITEM_BY_ID), array_filter($queryParameters));
     }
 
     /**
@@ -96,7 +96,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGE_STRINGS, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGE_STRINGS, array_filter($queryParameters));
     }
 
     /**
@@ -104,7 +104,7 @@ class StaticDataApi extends BaseApi
      */
     public function getLanguages()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGES, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_LANGUAGES, []);
     }
 
     /**
@@ -117,7 +117,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_MAP, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_MAP, array_filter($queryParameters));
     }
 
     /**
@@ -131,7 +131,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['masteryListData' => implode(',', $masteryListData)]);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_MASTERIES, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_MASTERIES, array_filter($queryParameters));
     }
 
     /**
@@ -146,7 +146,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['masteryData' => implode(',', $masteryData)]);
 
-        return $this->callApiUrl(str_replace('{masteryId}', $masteryId, self::API_URL_STATIC_DATA_MASTERY_BY_ID), array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{id}', $masteryId, self::API_URL_STATIC_DATA_MASTERY_BY_ID), array_filter($queryParameters));
     }
 
     /**
@@ -154,7 +154,7 @@ class StaticDataApi extends BaseApi
      */
     public function getRealms()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_REALM, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_REALM, []);
     }
 
     /**
@@ -168,7 +168,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['runeListData' => implode(',', $runeListData)]);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_RUNES, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_RUNES, array_filter($queryParameters));
     }
 
     /**
@@ -183,7 +183,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['runeData' => implode(',', $runeData)]);
 
-        return $this->callApiUrl(str_replace('{runeId}', $runeId, self::API_URL_STATIC_DATA_RUNE_BY_ID), array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{id}', $runeId, self::API_URL_STATIC_DATA_RUNE_BY_ID), array_filter($queryParameters));
     }
 
     /**
@@ -198,7 +198,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['dataById' => (string) $dataById, 'spellData' => implode(',', $spellData)]);
 
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_SUMMONER_SPELLS, array_filter($queryParameters), true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_SUMMONER_SPELLS, array_filter($queryParameters));
     }
 
     /**
@@ -213,7 +213,7 @@ class StaticDataApi extends BaseApi
     {
         $queryParameters = $this->handleQueryParametersForLocaleAndVersion($locale, $version, ['spellData' => implode(',', $spellData)]);
 
-        return $this->callApiUrl(str_replace('{summonerSpellId}', $summonerSpellId, self::API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID), array_filter($queryParameters), true);
+        return $this->callApiUrl(str_replace('{id}', $summonerSpellId, self::API_URL_STATIC_DATA_SUMMONER_SPELL_BY_ID), array_filter($queryParameters));
     }
 
     /**
@@ -221,7 +221,7 @@ class StaticDataApi extends BaseApi
      */
     public function getVersions()
     {
-        return $this->callApiUrl(self::API_URL_STATIC_DATA_VERSIONS, [], true);
+        return $this->callApiUrl(self::API_URL_STATIC_DATA_VERSIONS, []);
     }
 
     /**

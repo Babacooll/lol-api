@@ -8,12 +8,12 @@ use LoLApi\Result\ApiResult;
  * Class ChampionApi
  *
  * @package LoLApi\Api
- * @see     https://developer.riotgames.com/api/methods
+ * @see     https://developer.riotgames.com/api-methods/
  */
 class ChampionApi extends BaseApi
 {
-    const API_URL_CHAMPIONS_ALL = '/api/lol/{region}/v1.2/champion';
-    const API_URL_CHAMPION_BY_ID = '/api/lol/{region}/v1.2/champion/{championId}';
+    const API_URL_CHAMPIONS_ALL = '/lol/platform/v3/champions';
+    const API_URL_CHAMPION_BY_ID = '/lol/platform/v3/champions/{id}';
 
     /**
      * @param bool $onlyFreeToPlay
@@ -33,7 +33,7 @@ class ChampionApi extends BaseApi
      */
     public function getChampionById($championId)
     {
-        $url = str_replace('{championId}', $championId, self::API_URL_CHAMPION_BY_ID);
+        $url = str_replace('{id}', $championId, self::API_URL_CHAMPION_BY_ID);
 
         return $this->callApiUrl($url, []);
     }

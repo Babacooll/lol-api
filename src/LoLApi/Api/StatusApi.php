@@ -8,30 +8,19 @@ use LoLApi\Result\ApiResult;
  * Class StatusApi
  *
  * @package LoLApi\Api
- * @see     https://developer.riotgames.com/api/methods
+ * @see     https://developer.riotgames.com/api-methods/
  */
 class StatusApi extends BaseApi
 {
-    const API_URL_SHARDS = '/shards';
-    const API_URL_SHARDS_REGION = '/shards/{region}';
+    const API_URL_SHARDS = '/lol/status/v3/shard-data';
 
     /**
+     * Requests to this API are not counted against the application Rate Limits.
+     *
      * @return ApiResult
      */
     public function getShards()
     {
-        return $this->callApiUrl(self::API_URL_SHARDS, [], false, true);
-    }
-
-    /**
-     * @param string $region
-     *
-     * @return ApiResult
-     */
-    public function getShardsByRegion($region)
-    {
-        $url = str_replace('{region}', $region, self::API_URL_SHARDS_REGION);
-
-        return $this->callApiUrl($url, [], false, true);
+        return $this->callApiUrl(self::API_URL_SHARDS, []);
     }
 }

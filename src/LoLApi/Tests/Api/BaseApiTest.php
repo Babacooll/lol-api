@@ -2,8 +2,8 @@
 
 namespace LoLApi\Tests\Api;
 
-use Doctrine\Common\Cache\VoidCache;
 use LoLApi\Tests\AbstractApiTest;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
  * Class BaseApiTest
@@ -26,7 +26,6 @@ class BaseApiTest extends AbstractApiTest
      * @covers       LoLApi\Api\MatchListApi
      * @covers       LoLApi\Api\SummonerApi
      * @covers       LoLApi\Api\TeamApi
-     * @covers       LoLApi\Api\GameApi
      * @covers       LoLApi\Api\CurrentGameApi
      * @covers       LoLApi\Api\StatsApi
      * @covers       LoLApi\Api\StaticDataApi
@@ -46,13 +45,19 @@ class BaseApiTest extends AbstractApiTest
      */
     public function testWithCachedResult()
     {
-        $arrayCache = $this->getMockBuilder('Doctrine\Common\Cache\ArrayCache')->disableOriginalConstructor()->getMock();
-        $arrayCache->expects($this->once())->method('contains')->willReturn(true);
-        $arrayCache->expects($this->once())->method('fetch')->willReturn('{}');
+        $arrayCache = new ArrayAdapter();
+
+        $item = $arrayCache->getItem('foo');
+        $item->set('{}');
+        $arrayCache->save($item);
+
+        $fooItem = $arrayCache->getItem('foo');
+        $this->assertTrue($fooItem->isHit());
+        $this->assertEquals('{}', $fooItem->get());
 
         $apiClient = $this->getApiClient($arrayCache, $this->getSuccessfulHttpClient());
 
-        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
+        $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId(5);
     }
 
     /**
@@ -62,9 +67,9 @@ class BaseApiTest extends AbstractApiTest
      */
     public function testWithRateLimitException()
     {
-        $apiClient = $this->getApiClient(new VoidCache(), $this->getRateLimitHttpClient());
+        $apiClient = $this->getApiClient(new ArrayAdapter(), $this->getRateLimitHttpClient());
 
-        $apiClient->getCurrentGameApi()->getCurrentGameByPlatformIdAndSummonerId('EUW1', 5);
+        $apiClient->getSpectatorApi()->getCurrentGameByPlatformIdAndSummonerId(5);
     }
 
     /**
@@ -82,62 +87,10 @@ class BaseApiTest extends AbstractApiTest
     {
         return [
             [
-                'getCurrentGameApi',
+                'getSpectatorApi',
                 'getCurrentGameByPlatformIdAndSummonerId',
                 [
-                    'EUW1',
                     5
-                ]
-            ],
-            [
-                'getGameApi',
-                'getRecentGamesBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedStatsBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedSummaryBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedStatsBySummonerId',
-                [
-                    5,
-                    'SEASON2015'
-                ]
-            ],
-            [
-                'getStatsApi',
-                'getRankedSummaryBySummonerId',
-                [
-                    5,
-                    'SEASON2015'
-                ]
-            ],
-            [
-                'getTeamApi',
-                'getTeamsBySummonersIds',
-                [
-                    [5]
-                ]
-            ],
-            [
-                'getTeamApi',
-                'getTeamsByTeamsIds',
-                [
-                    [5]
                 ]
             ],
         ];
@@ -150,8 +103,8 @@ class BaseApiTest extends AbstractApiTest
     {
         return [
             [
-                'getMatchListApi',
-                'getMatchListBySummonerId',
+                'getMatchApi',
+                'getMatchListByAccountId',
                 [
                     5
                 ]
@@ -180,39 +133,25 @@ class BaseApiTest extends AbstractApiTest
             ],
             [
                 'getSummonerApi',
-                'getSummonersBySummonerNames',
+                'getSummonerBySummonerName',
                 [
-                    ['test']
+                    'test'
                 ]
             ],
             [
                 'getSummonerApi',
-                'getSummonersBySummonerIds',
+                'getSummonerBySummonerId',
                 [
-                    [5]
+                    5
                 ]
             ],
             [
                 'getSummonerApi',
-                'getSummonersMasteriesBySummonerIds',
+                'getSummonerByAccountId',
                 [
-                    [5]
+                    5
                 ]
             ],
-            [
-                'getSummonerApi',
-                'getSummonersNamesBySummonerIds',
-                [
-                    [5]
-                ]
-            ],
-            [
-                'getSummonerApi',
-                'getSummonersRunesBySummonerIds',
-                [
-                    [5]
-                ]
-            ]
         ];
     }
 
@@ -326,38 +265,16 @@ class BaseApiTest extends AbstractApiTest
         return [
             [
                 'getLeagueApi',
-                'getLeagueBySummonersIds',
+                'getLeagueBySummonerId',
                 [
-                    [
-                        5
-                    ]
+                    5
                 ]
             ],
             [
                 'getLeagueApi',
-                'getLeagueEntriesBySummonersIds',
+                'getLeaguePositionsBySummonerId',
                 [
-                    [
-                        5
-                    ]
-                ]
-            ],
-            [
-                'getLeagueApi',
-                'getLeagueByTeamsIds',
-                [
-                    [
-                        5
-                    ]
-                ]
-            ],
-            [
-                'getLeagueApi',
-                'getLeagueEntriesByTeamsIds',
-                [
-                    [
-                        5
-                    ]
+                    5
                 ]
             ],
             [
@@ -388,17 +305,9 @@ class BaseApiTest extends AbstractApiTest
                 'getShards'
             ],
             [
-                'getStatusApi',
-                'getShardsByRegion',
-                [
-                    'euw'
-                ]
-            ],
-            [
                 'getChampionMasteryApi',
                 'getChampionMastery',
                 [
-                    'EUW1',
                     5,
                     5
                 ]
@@ -407,7 +316,6 @@ class BaseApiTest extends AbstractApiTest
                 'getChampionMasteryApi',
                 'getChampionsMasteries',
                 [
-                    'EUW1',
                     5
                 ]
             ],
@@ -415,19 +323,9 @@ class BaseApiTest extends AbstractApiTest
                 'getChampionMasteryApi',
                 'getChampionsMasteriesScore',
                 [
-                    'EUW1',
                     5
                 ]
             ],
-            [
-                'getChampionMasteryApi',
-                'getTopChampionsMasteries',
-                [
-                    'EUW1',
-                    5,
-                    4
-                ]
-            ]
         ];
     }
 }
