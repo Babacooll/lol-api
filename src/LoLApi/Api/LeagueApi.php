@@ -13,7 +13,7 @@ use LoLApi\Result\ApiResult;
 class LeagueApi extends BaseApi
 {
     const API_URL_LEAGUE_BY_SUMMONER_ID = '/lol/league/v3/leagues/by-summoner/{summonerId}';
-    const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v3/positions/by-summoner/{summonerId}';
+    const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v4/positions/by-summoner/{encryptedSummonerId}';
     const API_URL_LEAGUE_CHALLENGER = '/lol/league/v3/challengerleagues/by-queue/{queue}';
     const API_URL_LEAGUE_MASTER = '/lol/league/v3/masterleagues/by-queue/{queue}';
 
@@ -36,7 +36,7 @@ class LeagueApi extends BaseApi
      */
     public function getLeaguePositionsBySummonerId($summonerId)
     {
-        $url = str_replace('{summonerId}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
+        $url = str_replace('{encryptedSummonerId}', $summonerId, self::API_URL_LEAGUE_POSITION_BY_SUMMONER_ID);
 
         return $this->callApiUrl($url, []);
     }

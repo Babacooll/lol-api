@@ -12,9 +12,9 @@ use LoLApi\Result\ApiResult;
  */
 class SummonerApi extends BaseApi
 {
-    const API_URL_SUMMONER_BY_NAME = '/lol/summoner/v3/summoners/by-name/{summonerName}';
-    const API_URL_SUMMONER_BY_ID = '/lol/summoner/v3/summoners/{summonerId}';
-    const API_URL_SUMMONER_BY_ACCOUNT_ID = '/lol/summoner/v3/summoners/by-account/{accountId}';
+    const API_URL_SUMMONER_BY_NAME = '/lol/summoner/v4/summoners/by-name/{summonerName}';
+    const API_URL_SUMMONER_BY_ID = '/lol/summoner/v4/summoners/{summonerId}';
+    const API_URL_SUMMONER_BY_ACCOUNT_ID = '/lol/summoner/v4/summoners/by-account/{accountId}';
 
     /**
      * @param string $summonerName
