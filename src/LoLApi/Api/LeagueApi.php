@@ -12,22 +12,10 @@ use LoLApi\Result\ApiResult;
  */
 class LeagueApi extends BaseApi
 {
-    const API_URL_LEAGUE_BY_SUMMONER_ID = '/lol/league/v3/leagues/by-summoner/{summonerId}';
     const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v4/positions/by-summoner/{encryptedSummonerId}';
-    const API_URL_LEAGUE_CHALLENGER = '/lol/league/v3/challengerleagues/by-queue/{queue}';
-    const API_URL_LEAGUE_MASTER = '/lol/league/v3/masterleagues/by-queue/{queue}';
-
-    /**
-     * @param int $summonerId
-     *
-     * @return ApiResult
-     */
-    public function getLeagueBySummonerId($summonerId)
-    {
-        $url = str_replace('{summonerId}', $summonerId, self::API_URL_LEAGUE_BY_SUMMONER_ID);
-
-        return $this->callApiUrl($url, []);
-    }
+    const API_URL_LEAGUE_CHALLENGER = '/lol/league/v4/challengerleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_MASTER = '/lol/league/v4/masterleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_GRAND_MASTER = '/lol/league/v4/grandmasterleagues/by-queue/{queue}';
 
     /**
      * @param int $summonerId
@@ -42,7 +30,7 @@ class LeagueApi extends BaseApi
     }
 
     /**
-     * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)
+     * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
      *
      * @return ApiResult
      */
@@ -54,11 +42,23 @@ class LeagueApi extends BaseApi
     }
 
     /**
-     * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5)
+     * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
      *
      * @return ApiResult
      */
     public function getMasterLeagues($gameQueueType)
+    {
+        $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_MASTER);
+
+        return $this->callApiUrl($url, []);
+    }
+
+    /**
+     * @param string $gameQueueType (Can be RANKED_SOLO_5x5, RANKED_FLEX_SR, RANKED_FLEX_TT)
+     *
+     * @return ApiResult
+     */
+    public function getGrandMasterLeagues($gameQueueType)
     {
         $url = str_replace('{queue}', $gameQueueType, self::API_URL_LEAGUE_MASTER);
 
