@@ -7,15 +7,14 @@ use LoLApi\Result\ApiResult;
 /**
  * Class LeagueApi
  *
- * @package LoLApi\Api
  * @see     https://developer.riotgames.com/api-methods/
  */
 class LeagueApi extends BaseApi
 {
-    const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v4/positions/by-summoner/{encryptedSummonerId}';
-    const API_URL_LEAGUE_CHALLENGER = '/lol/league/v4/challengerleagues/by-queue/{queue}';
-    const API_URL_LEAGUE_MASTER = '/lol/league/v4/masterleagues/by-queue/{queue}';
-    const API_URL_LEAGUE_GRAND_MASTER = '/lol/league/v4/grandmasterleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_POSITION_BY_SUMMONER_ID = '/lol/league/v4/entries/by-summoner/{encryptedSummonerId}';
+    const API_URL_LEAGUE_CHALLENGER              = '/lol/league/v4/challengerleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_MASTER                  = '/lol/league/v4/masterleagues/by-queue/{queue}';
+    const API_URL_LEAGUE_GRAND_MASTER            = '/lol/league/v4/grandmasterleagues/by-queue/{queue}';
 
     /**
      * @param int $summonerId
