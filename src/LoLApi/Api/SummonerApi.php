@@ -12,9 +12,9 @@ use LoLApi\Result\ApiResult;
  */
 class SummonerApi extends BaseApi
 {
-    const API_URL_SUMMONER_BY_NAME = '/lol/summoner/v3/summoners/by-name/{summonerName}';
-    const API_URL_SUMMONER_BY_ID = '/lol/summoner/v3/summoners/{summonerId}';
-    const API_URL_SUMMONER_BY_ACCOUNT_ID = '/lol/summoner/v3/summoners/by-account/{accountId}';
+    const API_URL_SUMMONER_BY_NAME = '/lol/summoner/v4/summoners/by-name/{summonerName}';
+    const API_URL_SUMMONER_BY_ID = '/lol/summoner/v4/summoners/{encryptedSummonerId}';
+    const API_URL_SUMMONER_BY_ACCOUNT_ID = '/lol/summoner/v4/summoners/by-account/{encryptedAccountId}';
 
     /**
      * @param string $summonerName
@@ -33,9 +33,9 @@ class SummonerApi extends BaseApi
      *
      * @return ApiResult
      */
-    public function getSummonerBySummonerId($summonerId)
+    public function getSummonerBySummonerId($encryptedSummonerId)
     {
-        $url = str_replace('{summonerId}', $summonerId, self::API_URL_SUMMONER_BY_ID);
+        $url = str_replace('{encryptedSummonerId}', $encryptedSummonerId, self::API_URL_SUMMONER_BY_ID);
 
         return $this->callApiUrl($url, []);
     }
@@ -45,9 +45,9 @@ class SummonerApi extends BaseApi
      *
      * @return ApiResult
      */
-    public function getSummonerByAccountId($accountId)
+    public function getSummonerByAccountId($encryptedAccountId)
     {
-        $url = str_replace('{accountId}', $accountId, self::API_URL_SUMMONER_BY_ACCOUNT_ID);
+        $url = str_replace('{encryptedAccountId}', $encryptedAccountId, self::API_URL_SUMMONER_BY_ACCOUNT_ID);
 
         return $this->callApiUrl($url, []);
     }

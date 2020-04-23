@@ -265,13 +265,6 @@ class BaseApiTest extends AbstractApiTest
         return [
             [
                 'getLeagueApi',
-                'getLeagueBySummonerId',
-                [
-                    5
-                ]
-            ],
-            [
-                'getLeagueApi',
                 'getLeaguePositionsBySummonerId',
                 [
                     5
